@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "770388969907",
+    "project_id": "green-cycle-2a62e",
+    "storage_bucket": "green-cycle-2a62e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770388969907:android:e1467b973d7c88639663c6",
+        "android_client_info": {
+          "package_name": "com.example.green_cycle_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiOd0il67Hp1VzY9bPLltabetXRwLuaA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
