@@ -22,8 +22,8 @@ class Generalbtn extends StatelessWidget {
               ),
             ), child: Text(text,
           style: TextStyle(
-            color: greenColor,
-            fontSize: 20
+            color: MyColors.greenColor,
+            fontSize: 20.sp
           ),
           ),
 
@@ -46,13 +46,13 @@ class FirstBtn extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color:greenColor
+        color:MyColors.greenColor
       ),
       child: TextButton(onPressed: onPressed,child: Text(text1,
       style: TextStyle(
         fontSize: 18.sp,
         fontWeight: FontWeight.w500,
-        color:whiteColor
+        color:MyColors.whiteColor
       ),
       ),
       ),
