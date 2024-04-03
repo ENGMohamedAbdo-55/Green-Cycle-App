@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:green_cycle_app/core/components/colors.dart';
 
-import '../../../firebase/models/users_model.dart';
+import '../../../../firebase/models/users_model.dart';
+
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -28,7 +29,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
       },
       icon: isSecured ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
-      color: greyColor,
+      color: MyColors.greyColor,
     );
   }
 

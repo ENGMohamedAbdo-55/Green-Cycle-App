@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/auth/login/cubit/login_cubit.dart';
-import 'package:green_cycle_app/auth/login/screen/login_screen.dart';
+import 'package:green_cycle_app/Features/onBoarding/onBoarding_Screen.dart';
+import 'Features/auth/login/cubit/login_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
          ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: OnBoardingScreen(),
           ),
         );
       },

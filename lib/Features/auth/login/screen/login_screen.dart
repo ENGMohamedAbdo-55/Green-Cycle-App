@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/auth/login/cubit/login_cubit.dart';
 import 'package:green_cycle_app/core/components/buttons.dart';
 import 'package:green_cycle_app/core/components/colors.dart';
 import 'package:green_cycle_app/core/components/textfield.dart';
 import 'package:green_cycle_app/core/components/topBar.dart';
+
+import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -80,9 +81,9 @@ class LoginScreen extends StatelessWidget {
                       child: Text('نسيت كلمه السر',
                           style: TextStyle(
                               fontSize: 12.sp,
-                              color: greenColor,
+                              color: MyColors.greenColor,
                               decoration: TextDecoration.underline,
-                              decorationColor: greenColor)),
+                              decorationColor: MyColors.greenColor)),
                     )
                   ],
                 ),
@@ -96,14 +97,12 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     TextButton(onPressed: (){}, child:Text('انشاء حساب جديد',
                       style:TextStyle(
-                      color: greenColor,
+                      color: MyColors.greenColor,
                       ),
 
                     ),
                     ),
-                    Text('ليس لديك حساب؟',
-                    style:AppTextStyles.smallText ,
-                    ),
+                    Text('ليس لديك حساب؟',),
                   ],
                 ),
 

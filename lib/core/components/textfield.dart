@@ -55,12 +55,12 @@ class DefaultTextField extends StatelessWidget {
         fillColor: Colors.grey[200],
         prefixIcon: prefixIcon,
         suffixIcon:suffixIcon,
-        suffixIconColor: greyColor,
+        suffixIconColor: MyColors.greyColor,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0).r),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15.0.r),
             borderSide: BorderSide(
-              color: greenColor,
+              color: MyColors.greenColor,
             )),
         hintText: hintText,
       ),
@@ -120,7 +120,7 @@ class SearchTextField extends StatelessWidget {
         border: const OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: greenColor,
+              color: MyColors.greenColor,
             )),
         hintText: hintText,
       ),
