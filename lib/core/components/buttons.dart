@@ -43,7 +43,7 @@ class FirstBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 60.h,
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color:MyColors.greenColor
@@ -60,3 +60,22 @@ class FirstBtn extends StatelessWidget {
   }
 }
 
+
+class BackBtn extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Color color;
+
+  const BackBtn({
+    required this.onPressed,
+    this.color = Colors.grey,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(Icons.arrow_back_ios_new),
+      color: MyColors.whiteColor,
+    );
+  }
+}
