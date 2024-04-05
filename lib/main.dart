@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:green_cycle_app/Features/auth/register/cubit/register_cubit.dart';
 import 'package:green_cycle_app/Features/onBoarding/onBoarding_Screen.dart';
 import 'Features/auth/login/cubit/login_cubit.dart';
+import 'Features/auth/register/register_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -27,9 +29,14 @@ class MyApp extends StatelessWidget {
          providers: [
            BlocProvider(
             create: (BuildContext context)=>LoginCubit(),
-        )
+
+        ),
+           BlocProvider(
+             create: (BuildContext context)=>RegisterCubit(),
+           ),
+
          ],
-          child: MaterialApp(
+          child: const MaterialApp(
             debugShowCheckedModeBanner: false,
             home: OnBoardingScreen(),
           ),
