@@ -65,7 +65,7 @@ class BackBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final Color color;
 
-  const BackBtn({
+  const BackBtn({super.key, 
     required this.onPressed,
     this.color = Colors.grey,
   });
@@ -74,7 +74,7 @@ class BackBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon: Icon(Icons.arrow_back_ios_new),
+      icon: const Icon(Icons.arrow_back_ios_new),
       color: MyColors.whiteColor,
     );
   }
