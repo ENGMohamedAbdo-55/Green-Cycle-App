@@ -38,7 +38,7 @@ class OnBoardingScreen extends StatelessWidget {
                   shape: const CircleBorder(),
                   onPressed: () {
                     if (boardController.page == boarding.length - 1) {
-                      navigateTo(context, const LoginScreen());
+                      navigateAndFinish(context, const LoginScreen());
 
                     } else {
                       boardController.nextPage(
