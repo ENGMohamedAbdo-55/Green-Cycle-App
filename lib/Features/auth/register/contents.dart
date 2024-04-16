@@ -6,21 +6,21 @@ import '../../../core/components/text_styles.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback ?onBackButtonPressed;
   final String ?title;
+  final Widget ?leading; // Reusable leading widget
+
 
   const CustomAppBar({
+    this.leading,
      this.onBackButtonPressed,
      this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios_new,color: MyColors.whiteColor,),
-        onPressed: onBackButtonPressed,
-      ),
-      toolbarHeight: 110,
+      leading: leading,
+      toolbarHeight: 110.h,
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       flexibleSpace: ClipPath(

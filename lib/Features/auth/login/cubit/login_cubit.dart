@@ -16,14 +16,13 @@ class LoginCubit extends Cubit<LoginStates> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
-
   final db = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
 
-  bool isSecured = true;
 
+  bool isSecured = true;
   Widget togglePass() {
     return IconButton(
       onPressed: () {
@@ -119,7 +118,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
       // Create a credential from the access token
       final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+      FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
       // Sign in to Firebase with the Facebook credentials
       final UserCredential userCredential = await FirebaseAuth.instance
