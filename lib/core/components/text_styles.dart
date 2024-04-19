@@ -49,6 +49,11 @@ abstract class AppStyles {
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
   );
+  static  TextStyle textStyle24 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 24.sp,
+    fontWeight: FontWeight.w500,color: Colors.black
+  );
   static  TextStyle heading20 = TextStyle(
     fontFamily:'Cairo',
     fontSize: 20.sp,
@@ -58,6 +63,12 @@ abstract class AppStyles {
   static  TextStyle heading25 = TextStyle(
     fontFamily:'Cairo',
     fontSize: 25.sp,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.normal,
+  );
+  static  TextStyle homeHeader = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 32.sp,
     color: MyColors.whiteColor,
     fontWeight: FontWeight.normal,
   );
