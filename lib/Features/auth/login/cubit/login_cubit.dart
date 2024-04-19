@@ -19,8 +19,7 @@ class LoginCubit extends Cubit<LoginStates> {
   final db = FirebaseFirestore.instance;
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-
-
+  UserModel? currentUser;
 
   bool isSecured = true;
   Widget togglePass() {
@@ -43,6 +42,8 @@ class LoginCubit extends Cubit<LoginStates> {
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
+
+ 
 
   Future<List<UserModel>> allUser() async {
     final snapshot = await db.collection("Users").get();
@@ -106,7 +107,6 @@ class LoginCubit extends Cubit<LoginStates> {
     }
   }
 
-
   ///signIn with Facebook
 
   Future<void> signInWithFacebook() async {
@@ -118,7 +118,7 @@ class LoginCubit extends Cubit<LoginStates> {
 
       // Create a credential from the access token
       final OAuthCredential facebookAuthCredential =
-      FacebookAuthProvider.credential(loginResult.accessToken!.token);
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
       // Sign in to Firebase with the Facebook credentials
       final UserCredential userCredential = await FirebaseAuth.instance
@@ -128,7 +128,6 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(FaceBookSignInErrorState(error.toString()));
     }
   }
-
 
   ///Reset Password
 
@@ -141,5 +140,4 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(PasswordResetErrorState(error.toString()));
     }
   }
-
 }

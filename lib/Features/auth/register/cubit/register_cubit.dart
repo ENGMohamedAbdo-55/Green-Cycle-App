@@ -7,24 +7,23 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitial());
   static RegisterCubit get(context) => BlocProvider.of(context);
-  final GlobalKey<FormState> formKey=GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
 
-
-
   bool isSecured = true;
   Widget togglePass() {
     return IconButton(
       onPressed: () {
-        isSecured=!isSecured;
+        isSecured = !isSecured;
         emit(TogglePasswordState(isSecured));
-
       },
-      icon: isSecured ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+      icon: isSecured
+          ? const Icon(Icons.visibility)
+          : const Icon(Icons.visibility_off),
       color: Colors.grey,
     );
   }
@@ -46,7 +45,10 @@ class RegisterCubit extends Cubit<RegisterStates> {
       await userCredential.user!.updateDisplayName(name);
 
       // Save user data to Firestore
-      await FirebaseFirestore.instance.collection('Users').doc(userCredential.user!.uid).set({
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user!.uid)
+          .set({
         'name': name,
         'phone': phone,
         'email': email,
@@ -54,10 +56,29 @@ class RegisterCubit extends Cubit<RegisterStates> {
       });
 
       emit(RegisterSuccessState(userCredential.user!));
+      // addUserToFireStore();
     } catch (error) {
       print(error.toString());
       emit(RegisterErrorState(error.toString()));
     }
   }
 
+  // void addUserToFireStore() {
+  //   FirebaseFirestore.instance
+  //       .collection('Users')
+  //       .add(
+  //         {
+  //           'uid': FirebaseAuth.instance.currentUser?.uid,
+  //           'email': FirebaseAuth.instance.currentUser?.email,
+  //         },
+  //       )
+  //       .then(
+  //         (value) => print('Add User To FireStore Successfully'),
+  //       )
+  //       .catchError(
+  //         (onError) {
+  //           print('Add User To FireStore Error $onError');
+  //         },
+  //       );
+  // }
 }
