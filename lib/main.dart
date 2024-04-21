@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/register/cubit/register_cubit.dart';
+import 'package:green_cycle_app/Features/cart/view/screens/cartScreen.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
 import 'package:green_cycle_app/Features/splash/splash_screen.dart';
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
           ],
           child: const MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
+            home: CartScreen(),
           ),
         );
       },

@@ -82,6 +82,7 @@ flutter:
   assets:
      - assets/images/onBoarding_images/
      - assets/images/logo/
+     - assets/images/cart/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

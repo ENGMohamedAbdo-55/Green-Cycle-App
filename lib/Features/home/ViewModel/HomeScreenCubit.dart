@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:green_cycle_app/Features/cart/view/screens/cartScreen.dart';
 import '../view/layouts/Home_Layout.dart';
 import '../view/layouts/post_screen.dart';
 import 'HomeScreenState.dart';
@@ -32,6 +33,12 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       color: Colors.white,
     ),
     Icon(
+      Icons.card_travel,
+      size: 30.sp,
+      color: Colors.white,
+    ),
+
+    Icon(
       Icons.access_time,
       size: 30.sp,
       color: Colors.white,
@@ -44,11 +51,11 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   ];
 
   List<Widget> layouts = [
-    HomeLayoutScreen(),
-    HomeLayoutScreen(),
-    Post_Screen(),
-    HomeLayoutScreen(),
-    HomeLayoutScreen(),
+    const HomeLayoutScreen(),
+    const HomeLayoutScreen(),
+    const Post_Screen(),
+    const CartScreen(),
+    const HomeLayoutScreen(),
     // HomeLayout(),
     // DoctorsScreen(),
     // Search(),
