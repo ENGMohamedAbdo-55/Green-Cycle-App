@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/core/Services/spacing.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
+import 'package:green_cycle_app/core/text_styles.dart';
 
-import 'components/colors.dart';
+import 'colors.dart';
 
 homeAppBar({Icon? icon, Color? color, double? width}) => Container(
       width: width?.w,
@@ -113,6 +113,31 @@ itemCard({
               ),
             ],
           ),
+        ),
+      ),
+    );
+Widget postText({required String text}) => Text(
+      text,
+      style: AppStyles.textStyle18,
+    );
+
+Widget custombutton({
+  required Color color,
+  required Color fontcolor,
+  required String text,
+  double? w,
+  double? h,
+  double? size,
+}) =>
+    Container(
+      width: w ?? 350.w,
+      height: h ?? 50.h,
+      decoration: BoxDecoration(
+          color: color, borderRadius: BorderRadius.circular(50.r)),
+      child: Center(
+        child: Text(
+          '$text',
+          style: TextStyle(fontSize: size ?? 20.sp, color: fontcolor),
         ),
       ),
     );

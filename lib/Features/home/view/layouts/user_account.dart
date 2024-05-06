@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
 
-import '../../../../core/components/colors.dart';
+import '../../../../core/colors.dart';
 
 class UserAccount extends StatelessWidget {
   const UserAccount({super.key});

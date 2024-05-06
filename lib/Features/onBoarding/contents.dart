@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../core/colors.dart';
+import '../../core/text_styles.dart';
 
 final PageController boardController = PageController();
 

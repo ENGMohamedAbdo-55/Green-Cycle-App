@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
 import 'package:green_cycle_app/Features/onBoarding/contents.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/navigation_const.dart';
+import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
+
+import '../../core/colors.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});

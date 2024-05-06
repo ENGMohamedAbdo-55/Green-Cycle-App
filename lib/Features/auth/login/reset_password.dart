@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/login/cubit/login_cubit.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
-import 'package:green_cycle_app/core/components/buttons.dart';
-import 'package:green_cycle_app/core/components/textfield.dart';
+import 'package:green_cycle_app/Features/home/view/components/buttons.dart';
 
-import '../../../core/components/colors.dart';
+import '../../../core/colors.dart';
+import '../../../core/textfield.dart';
 
 class ResetPassScreen extends StatelessWidget {
   const ResetPassScreen({super.key});

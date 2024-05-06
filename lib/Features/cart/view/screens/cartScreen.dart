@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
 import 'package:green_cycle_app/Features/cart/view/widgets/cart_item.dart';
 import 'package:green_cycle_app/Features/cart/view/widgets/empty_cart_img.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
+
+import '../../../../core/colors.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

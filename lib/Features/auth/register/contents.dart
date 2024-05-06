@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/components/colors.dart';
-import '../../../core/components/text_styles.dart';
+import '../../../core/colors.dart';
+import '../../../core/text_styles.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback ?onBackButtonPressed;
   final String ?title;

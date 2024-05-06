@@ -6,13 +6,13 @@ import 'package:green_cycle_app/Features/auth/login/screen/login_form.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
 import 'package:green_cycle_app/Features/auth/register/register_screen.dart';
 import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
-import 'package:green_cycle_app/core/components/buttons.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/navigation_const.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
-import 'package:green_cycle_app/core/components/textfield.dart';
+import 'package:green_cycle_app/Features/home/view/components/buttons.dart';
+import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
 
 import '../../../../core/Services/Navigation.dart';
+import '../../../../core/colors.dart';
+import '../../../../core/text_styles.dart';
+import '../../../../core/textfield.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigation.goPushReplace(context, HomeScreen());
+          Navigation.goPushReplace(context, Home_Screen());
         }
       },
       child: Scaffold(

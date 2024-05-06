@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
+
+import '../../../../core/colors.dart';
 
 class Generalbtn extends StatelessWidget {
     const Generalbtn({required this.text,super.key});

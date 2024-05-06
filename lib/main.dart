@@ -3,12 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
 import 'package:green_cycle_app/Features/auth/register/cubit/register_cubit.dart';
-import 'package:green_cycle_app/Features/cart/view/screens/cartScreen.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/HomeScreenCubit.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
 import 'package:green_cycle_app/Features/splash/splash_screen.dart';
 import 'Features/auth/login/cubit/login_cubit.dart';
+import 'Features/home/view/Screens/details_screen.dart';
+import 'core/observer.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,6 +21,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Bloc.observer = MyBlocObserver();
+
   runApp(const MyApp());
 }
 
@@ -41,12 +45,13 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => RegisterCubit(),
             ),
             BlocProvider(
-              create: (BuildContext context) => HomeScreenCubit(),
+              create: (BuildContext context) =>
+                  HomeScreenCubit()..getAllPostsFromFireBase(),
             )
           ],
           child: const MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: CartScreen(),
+            home: Home_Screen(),
           ),
         );
       },

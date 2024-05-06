@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
+import 'package:green_cycle_app/core/colors.dart';
 
 abstract class AppStyles {
   static  TextStyle textStyle18 = TextStyle(
@@ -48,6 +48,14 @@ abstract class AppStyles {
     fontFamily:'Cairo',
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+        color: Colors.white
+
+  );
+  static  TextStyle textStyle16w = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+    color: Colors.white
   );
   static  TextStyle textStyle24 = TextStyle(
     fontFamily:'Cairo',
@@ -66,7 +74,7 @@ abstract class AppStyles {
     color: MyColors.whiteColor,
     fontWeight: FontWeight.normal,
   );
-  static  TextStyle homeHeader = TextStyle(
+  static  TextStyle textStyle32 = TextStyle(
     fontFamily:'Cairo',
     fontSize: 32.sp,
     color: MyColors.whiteColor,

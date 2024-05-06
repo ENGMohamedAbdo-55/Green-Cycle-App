@@ -2,12 +2,13 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/HomeScreenCubit.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/HomeScreenState.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+import '../../../../core/colors.dart';
+
+class Home_Screen extends StatelessWidget {
+  const Home_Screen({Key?key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +19,8 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeScreenCubit.get(context);
         return Scaffold(
-          extendBody: true,
-          bottomNavigationBar: CurvedNavigationBar(
+            extendBody: true,
+            bottomNavigationBar: CurvedNavigationBar(
               backgroundColor: Colors.transparent,
               color: MyColors.greenColor,
               items: cubit.items,
@@ -27,8 +28,7 @@ class HomeScreen extends StatelessWidget {
               height: 50.h,
               onTap: (currentindex) => cubit.changecurrentindex(currentindex),
             ),
-            body: cubit.layouts[cubit.currentindex]
-        );
+            body: cubit.layouts[cubit.currentindex]);
       },
     );
   }

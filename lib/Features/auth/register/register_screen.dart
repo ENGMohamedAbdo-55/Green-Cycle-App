@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/navigation_const.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
+import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
 import '../../../core/Services/Navigation.dart';
-import '../../../core/components/buttons.dart';
-import '../../../core/components/textfield.dart';
+import '../../../core/colors.dart';
+import '../../../core/text_styles.dart';
+import '../../../core/textfield.dart';
+import '../../home/view/components/buttons.dart';
 import '../../home/view/Screens/Home_Screen.dart';
 import 'cubit/register_cubit.dart';
 
@@ -22,7 +22,7 @@ class RegisterScreen extends StatelessWidget {
       listener: (context, state) {
         // TODO: implement listener
         if (state is RegisterSuccessState) {
-          Navigation.goPushReplace(context, HomeScreen());
+          Navigation.goPushReplace(context, Home_Screen());
         }
       },
       child: Scaffold(

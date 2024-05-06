@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/core/components/colors.dart';
-import 'package:green_cycle_app/core/components/text_styles.dart';
+
+import '../../../../core/colors.dart';
+import '../../../../core/text_styles.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({
