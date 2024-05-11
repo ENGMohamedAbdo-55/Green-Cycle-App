@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/firebase_collection/collection.dart';
+import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
+import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
 import '../../../../firebase/models/users_model.dart';
 
@@ -42,8 +45,6 @@ class LoginCubit extends Cubit<LoginStates> {
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     return userData;
   }
-
- 
 
   Future<List<UserModel>> allUser() async {
     final snapshot = await db.collection("Users").get();
@@ -93,6 +94,11 @@ class LoginCubit extends Cubit<LoginStates> {
       );
 
       emit(LoginSuccessState(userCredential.user!));
+      await SecureStorage()
+          .storage
+          .write(key: SecureKeys.userToken, value: currentUser!.token);
+      print(
+          ' The token issssSsss:  ${await SecureStorage().storage.read(key: SecureKeys.userToken)}');
     } catch (error) {
       print(error.toString());
       String errorMessage;

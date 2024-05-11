@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,97 +9,151 @@ import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.da
 import 'package:green_cycle_app/core/Services/spacing.dart';
 
 import '../../../../core/colors.dart';
+import '../../../../core/text_styles.dart';
 import '../../../../core/widgets.dart';
 
 class Details_screen extends StatelessWidget {
-  const Details_screen({super.key});
+  Details_screen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenCubit, HomeScreenState>(
       builder: (context, state) {
+        HomeScreenCubit.get(context).initControllerFireBase();
+        var cubit = HomeScreenCubit.get(context);
+
         return Scaffold(
           body: Padding(
             padding: EdgeInsets.only(left: 5.w, right: 5.w, top: 30.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 300,
-                      color: Colors.amberAccent,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(12.0.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.black,
-                            child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.black,
-                            child: IconButton(
-                              onPressed: () {
-                                // cubit.addToFav(id: id.id);
-                              },
-                              icon: const Icon(
-                                Icons.favorite_border_outlined,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                verticalSpace(10),
-                Padding(
-                  padding: EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
                     children: [
-                      //Text('${id.title}',style: AppStyles.heading20,),
-                      verticalSpace(10),
-                      Row(children: [
-                        //hometext2(text: "${id.category}"),
-                        Spacer(),
-                      ]),
-                      verticalSpace(10),
-                      Text(
-                        'description',
-                      ),
-                      verticalSpace(10),
-                      Container(
-                        height: 190,
-                        // child:
+                      Image.network(
+                        cubit.cameraUrl ?? "assets/images/cart/cartitemimg.png",
+                        width: double.infinity,
+                        height: 300, fit: BoxFit.fill,
 
-                        // Text( '${id.description}')
+                        // color: Colors.amberAccent,
                       ),
-                      verticalSpace(5),
-                      InkWell(
-                        //onTap: () => cubit.addtocart(id: id.id),
-                        child: custombutton(
-                            color: MyColors.greenColor,
-                            fontcolor: Colors.white,
-                            text: 'Add To Cart'),
+                      Padding(
+                        padding: EdgeInsets.all(12.0.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                  size: 30.sp,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
-                )
-              ],
+                  verticalSpace(10),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 48.w,
+                              child: Card(
+                                child: Text(
+                                  'جديد',
+                                  textAlign: TextAlign.center,
+                                  style: AppStyles.greenTextStyle10,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            Expanded(
+                              flex: 15,
+                              child: Text(
+                                textAlign: TextAlign.end,
+                                maxLines: 8,
+                                cubit.titleController.text ?? '{id.title}',
+                                style: AppStyles.textStyle20bbold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        verticalSpace(10),
+                        Text(
+                          // cubit.timeController.text.toString() ??
+                          '25/4/2024',
+                          textAlign: TextAlign.left,
+                          style: AppStyles.textStyle14b,
+                        ),
+                        Divider(
+                          thickness: 0.7,
+                          color: Colors.black,
+                        ),
+                        Row(children: [
+                          //hometext2(text: "${id.category}"),
+                          Spacer(),
+                        ]),
+                        verticalSpace(10),
+                        Text(
+                          'الوصف',
+                          textAlign: TextAlign.right,
+                          style: AppStyles.textStyle18,
+                        ),
+                        verticalSpace(10),
+                        Text(
+                          textAlign: TextAlign.end,
+                          maxLines: 2,
+                          cubit.descriptionController.text ?? '......',
+                          style: AppStyles.textStyle14b,
+                        ),
+                        verticalSpace(10),
+                        Divider(
+                          thickness: 0.7,
+                          color: Colors.black,
+                        ),
+                        Text(
+                          'الموقع',
+                          textAlign: TextAlign.right,
+                          style: AppStyles.textStyle18,
+                        ),
+                        verticalSpace(10),
+                        Text(
+                          textAlign: TextAlign.end,
+                          maxLines: 5,
+                          // cubit.locationController.text ??
+                          "المنصورة/الدقهلية",
+                          style: AppStyles.textStyle14b,
+                        ),
+                        verticalSpace(10),
+                        Divider(
+                          thickness: 0.7,
+                          color: Colors.black,
+                        ),
+                        verticalSpace(25),
+                        InkWell(
+                          //onTap: () => cubit.addtocart(id: id.id),
+                          child: custombutton(
+                              color: MyColors.greenColor,
+                              fontcolor: Colors.white,
+                              text: 'Add To Cart'),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         );

@@ -161,7 +161,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     Text(
                       'ليس لديك حساب؟',
-                      style: AppStyles.textStyle11,
+                      style: AppStyles.textStyle11b,
                     ),
                   ],
                 ),

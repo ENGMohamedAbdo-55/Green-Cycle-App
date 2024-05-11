@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class PostModelFireBase {
   String? id;
@@ -6,13 +9,17 @@ class PostModelFireBase {
   String? description;
   String? date;
   String? time;
+  String? cameraUrl;
+  String? galleryUrl;
 
   PostModelFireBase({
     this.id,
     this.title,
     this.description,
     this.date,
-    this.time,
+    this.time, 
+    this.cameraUrl ,
+    this.galleryUrl ,
   });
 
   PostModelFireBase.fromJson(Map<String, dynamic> json) {
@@ -20,6 +27,8 @@ class PostModelFireBase {
     description = json['description'];
     date = json['date'];
     time = json['time'];
+    cameraUrl = json['cameraUrl'];
+    galleryUrl = json['galleryUrl'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,6 +37,8 @@ class PostModelFireBase {
       'description': description,
       'date': date,
       'time': time,
+      'cameraUrl': cameraUrl,
+      'galleryUrl': galleryUrl,
     };
   }
 }

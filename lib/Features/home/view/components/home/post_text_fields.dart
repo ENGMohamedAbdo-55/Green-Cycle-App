@@ -112,7 +112,7 @@ class Post_fields_Screen extends StatelessWidget {
                     },
                     child: Text(
                       'نشر الإعلان',
-                      style: AppStyles.textStyle16,
+                      style: AppStyles.textStyle16w,
                     ),
                     style: ElevatedButton.styleFrom(
                         textStyle: TextStyle(color: MyColors.whiteColor),

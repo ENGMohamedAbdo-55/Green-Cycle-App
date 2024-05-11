@@ -22,11 +22,31 @@ class Image_picker extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                IconButton(
+                  onPressed: () {
+                    cubit.galleryImage();
+                  },
+                  icon: Icon(
+                    Icons.photo_size_select_actual_rounded,
+                    size: 40.sp,
+                    color: MyColors.greenColor,
+                  ),
+                ),
                 Text(
                   " أختر صورة",
                   style: AppStyles.textStyle18,
                 ),
-                horizontalSpace(100),
+                horizontalSpace(60),
+                IconButton(
+                  onPressed: () {
+                    cubit.cameraImage();
+                  },
+                  icon: Icon(
+                    Icons.camera_alt,
+                    size: 40.sp,
+                    color: MyColors.greenColor,
+                  ),
+                ),
                 Text(
                   'التقط صوره ',
                   style: AppStyles.textStyle18,
@@ -36,72 +56,25 @@ class Image_picker extends StatelessWidget {
             verticalSpace(10),
             Row(
               children: [
-                Container(
-                  child: Column(children: [
-                    InkWell(
-                      onTap: () {
-                        cubit.galleryImage();
-                      },
-                      child: state is PickPhotoSuccess
-                          ? Text('')
-                          : Container(
-                              //select photo
-                              width: 160.w,
-                              height: 160.h,
-                              decoration: BoxDecoration(
-                                  color: MyColors.textFieldColor,
-                                  borderRadius: BorderRadius.circular(15.r)),
-                              child: Center(
-                                child: Icon(
-                                  Icons.add_a_photo,
-                                  size: 45.sp,
-                                ),
-                              ),
-                            ),
-                    ),
-                    if (cubit.galleryFile != null)
-                      Image.file(
-                        fit: BoxFit.fill,
-                        cubit.galleryFile!,
-                        width: 160.w,
-                        height: 160.h,
-                      )
-                  ]),
-                ),
+                if (cubit.galleryUrl != null)
+                  state is PickPhotoLoading
+                      ? CircularProgressIndicator.adaptive()
+                      : Image.network(
+                          fit: BoxFit.fill,
+                          cubit.galleryUrl!,
+                          width: 160.w,
+                          height: 160.h,
+                        ),
                 horizontalSpace(20),
-                Container(
-                  child: Column(children: [
-                    InkWell(
-                      onTap: () {
-                        cubit.cameraImage();
-                      },
-                      child: state is TakePhotoSuccess
-                          ? Text('')
-                          : Container(
-                              //take a photo
-                              width: 160.w,
-                              height: 160.h,
-                              decoration: BoxDecoration(
-                                  color: MyColors.textFieldColor,
-                                  borderRadius: BorderRadius.circular(15.r)),
-                              child: Center(
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  size: 45.sp,
-                                ),
-                              ),
-                            ),
-                    ),
-                    if (cubit.cameraFile != null)
-                      Image.file(
-                        fit: BoxFit.fill,
-                        cubit.cameraFile!,
-                        width: 160.w,
-                        height: 160.h,
-                      )
-                  ]),
-                )
-                
+                if (cubit.cameraUrl != null)
+                  state is TakePhotoLoading
+                      ? CircularProgressIndicator.adaptive()
+                      : Image.network(
+                          fit: BoxFit.fill,
+                          cubit.cameraUrl!,
+                          width: 160.w,
+                          height: 160.h,
+                        )
               ],
             ),
           ],

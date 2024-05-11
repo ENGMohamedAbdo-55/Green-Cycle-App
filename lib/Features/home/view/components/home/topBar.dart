@@ -49,7 +49,9 @@ class TopBar extends StatelessWidget {
                 horizontalSpace(16),
                 InkWell(
                   onTap: () => Navigation.goPush(context, Search_Screen()),
-                  child: Container(
+                  child: 
+                  
+                  Container(
                     width: 250.w,
                     height: 40.h,
                     decoration: BoxDecoration(
@@ -63,7 +65,7 @@ class TopBar extends StatelessWidget {
                       title: Text(
                         'ما الذي تبحث عنه ؟',
                         textAlign: TextAlign.right,
-                        style: AppStyles.textStyle14,
+                        style: AppStyles.textStyle14b,
                       ),
                     ),
                   ),

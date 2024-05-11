@@ -1,6 +1,7 @@
 import 'dart:io';
-
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import '../../../cart/view/screens/cartScreen.dart';
 import '../../Model/post_model.dart';
 import '../../view/layouts/Home_Layout.dart';
 import '../../view/layouts/post_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'HomeScreenState.dart';
 import '../firebase_collection/collection.dart' as col;
 
@@ -22,49 +24,87 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   var dateController = TextEditingController();
   var timeController = TextEditingController();
   var locationController = TextEditingController();
-  int currentTaskIndex = 0;
 
+  void initControllerFireBase() {
+    titleController.text = PostsFireBase[currentTaskIndex].title ?? '';
+    descriptionController.text =
+        PostsFireBase[currentTaskIndex].description ?? '';
+    dateController.text = PostsFireBase[currentTaskIndex].date ?? '';
+    timeController.text = PostsFireBase[currentTaskIndex].time ?? '';
+  }
+
+  int currentTaskIndex = 0;
   void changeCurrentTask(int indexx) {
     currentTaskIndex = indexx;
   }
 
   int currentindex = 0;
-
   void changecurrentindex(index) {
     currentindex = index;
     emit(changeindex());
   }
 
   int groupValue = 0;
-
   void changeGroupValue({required int newValue}) {
     groupValue = newValue;
     emit(ChangeGroupValue());
   }
+  
+  void clearControllers() {
+    titleController.clear();
+    descriptionController.clear();
+    dateController.clear();
+    timeController.clear();
+  }
 
   File? cameraFile;
+  String? cameraUrl;
   cameraImage() async {
 // Capture a photo.
     emit(TakePhotoLoading());
-    final ImagePicker picker = ImagePicker();
-    final XFile? imageCamera =
-        await picker.pickImage(source: ImageSource.camera);
-    cameraFile = File(imageCamera!.path);
-    emit(TakePhotoSuccess());
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? imageCamera =
+          await picker.pickImage(source: ImageSource.camera);
+      if (imageCamera != null) {
+        cameraFile = File(imageCamera!.path);
+        var cameraImageName = basename(imageCamera!.path);
+        var camerafilerefrence = FirebaseStorage.instance.ref(cameraImageName);
+        await camerafilerefrence.putFile(cameraFile!);
+        cameraUrl = await camerafilerefrence.getDownloadURL();
+      }
+      emit(TakePhotoSuccess());
+    } catch (e) {
+      print('Error while capturing photo: $e');
+    }
   }
 
   File? galleryFile;
+  String? galleryUrl;
   galleryImage() async {
     // Pick an image.
     emit(PickPhotoLoading());
-    final ImagePicker picker = ImagePicker();
-    final XFile? imageGallery =
-        await picker.pickImage(source: ImageSource.gallery);
-    galleryFile = File(imageGallery!.path);
-    emit(PickPhotoSuccess());
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? imageGallery =
+          await picker.pickImage(source: ImageSource.gallery);
+      if (imageGallery != null) {
+        galleryFile = File(imageGallery!.path);
+        var galleryImageName = basename(imageGallery.path);
+        var galleryfilerefrence =
+            FirebaseStorage.instance.ref(galleryImageName);
+        await galleryfilerefrence.putFile(galleryFile!);
+        galleryUrl = await galleryfilerefrence.getDownloadURL();
+      }
+
+      emit(PickPhotoSuccess());
+    } catch (e) {
+      print('Error while capturing photo: $e');
+    }
   }
 
   int activeindex = 0;
+  int activeindexdetail = 0;
   final cato = <String>[
     'بلاستيك',
     'معادن',
@@ -105,7 +145,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     HomeLayoutScreen(),
     HomeLayoutScreen(),
     Post_Screen(),
-   const CartScreen(),
+    CartScreen(),
     HomeLayoutScreen(),
 
     // DoctorsScreen(),
@@ -116,15 +156,19 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   ///////////////add//////////////////
   void addPostToFireBase() {
     PostModelFireBase post = PostModelFireBase(
-      title: titleController.text,
-      description: descriptionController.text,
-      date: dateController.text,
-      time: timeController.text,
-    );
+        title: titleController.text,
+        description: descriptionController.text,
+        date: dateController.text,
+        time: timeController.text,
+        cameraUrl: cameraUrl,
+        galleryUrl: galleryUrl);
     emit(AddPostLoadingState());
+
     FirebaseFirestore.instance
         .collection('posts')
-        .add(post.toJson())
+        .add(
+          post.toJson(),
+        )
         .then((value) {
       print('Add Post Successfully');
       emit(AddPostSuccessState());
@@ -140,14 +184,19 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
 
   void getAllPostsFromFireBase() {
     emit(GetPostLoading());
-    FirebaseFirestore.instance.collection(col.posts).snapshots().listen((value) {
+    FirebaseFirestore.instance
+        .collection(col.posts)
+        .snapshots()
+        .listen((value) {
       PostsFireBase = [];
       value.docs.forEach((element) {
         PostModelFireBase currentPost =
             PostModelFireBase.fromJson(element.data());
         currentPost.id = element.id;
-        PostsFireBase.add(currentPost);
-        print(element.data());
+        PostsFireBase.add(
+          currentPost,
+        );
+        // print(element.data());
       });
       emit(GetPostSuccess());
     }).onError((error) {

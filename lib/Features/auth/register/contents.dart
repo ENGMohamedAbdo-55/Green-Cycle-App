@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Center(
             child: Text(
               title?? '',
-              style: AppStyles.heading20,
+              style: AppStyles.textStyle20w,
             ),
           ),
         ),

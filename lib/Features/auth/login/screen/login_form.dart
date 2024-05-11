@@ -30,7 +30,7 @@ class MyDivider extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 2.w),
           child: Text(
             'او',
-            style: AppStyles.textStyle11,
+            style: AppStyles.textStyle11b,
           ),
         ),
         Expanded(

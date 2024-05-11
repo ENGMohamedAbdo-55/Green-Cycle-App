@@ -67,7 +67,7 @@ class CartItem extends StatelessWidget {
                           children: [
                             Text(
                               " طن حديد مستعمل",
-                              style: AppStyles.textStyle16
+                              style: AppStyles.textStyle16b
                                   .copyWith(color: Colors.black),
                               textAlign: TextAlign.end,
                             ),
@@ -76,16 +76,16 @@ class CartItem extends StatelessWidget {
                               children: [
                                 Text(
                                   "جنيه",
-                                  style: AppStyles.textStyle11,
+                                  style: AppStyles.textStyle11b,
                                 ),
                                 Text(
                                   "20000 ",
-                                  style: AppStyles.textStyle14
+                                  style: AppStyles.textStyle14w
                                       .copyWith(color: MyColors.greenColor),
                                 ),
                                 Text(
                                   "السعر ",
-                                  style: AppStyles.textStyle11,
+                                  style: AppStyles.textStyle11b,
                                 ),
                               ],
                             ),

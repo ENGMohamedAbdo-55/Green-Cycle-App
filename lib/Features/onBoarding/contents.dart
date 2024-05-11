@@ -64,7 +64,7 @@ Widget buildBoardingItem(context, BoardingModel model) => Column(
         SizedBox(height: 15.h),
         Text(
           model.body,
-          style: AppStyles.textStyle14,
+          style: AppStyles.textStyle14w,
         ),
         SizedBox(height: 30.h),
         Padding(

@@ -15,7 +15,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../../core/text_styles.dart';
 import '../../../../core/widgets.dart';
-
+import '../Screens/all_posts.dart';
 
 class HomeLayoutScreen extends StatelessWidget {
   const HomeLayoutScreen({super.key});
@@ -79,7 +79,7 @@ class HomeLayoutScreen extends StatelessWidget {
                                 height: 10.h,
                               ),
                               Text(
-                                'Add Task ...',
+                                'لا يوجد شئ حتي الان! ...',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20.sp,
@@ -89,38 +89,44 @@ class HomeLayoutScreen extends StatelessWidget {
                           ),
                         )
                       : Padding(
-                          padding: EdgeInsets.only(left: 24.0.w, right: 24.w),
+                          padding: EdgeInsets.only(left: 20..w, right: 20.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
-                                'الفئات',
-                                textAlign: TextAlign.right,
-                                style: AppStyles.textStyle24,
-                              ),
-                              verticalSpace(10),
-                              SizedBox(
-                                width: 350,
-                                height: 40.h,
-                                child: ListView.separated(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) => InkWell(
-                                        onTap: () {},
-                                        child: categoryCard(
-                                            text1: " ${cubit.cato}")),
-                                    separatorBuilder: (context, index) =>
-                                        horizontalSpace(5),
-                                    itemCount: cubit.cato.length),
-                              ),
+                              // Text(
+                              //   'الفئات',
+                              //   textAlign: TextAlign.right,
+                              //   style: AppStyles.textStyle24,
+                              // ),
+                              // verticalSpace(10),
+                              // SizedBox(
+                              //   width: 350,
+                              //   height: 40.h,
+                              //   child: ListView.separated(
+                              //       physics: NeverScrollableScrollPhysics(),
+                              //       shrinkWrap: true,
+                              //       scrollDirection: Axis.horizontal,
+                              //       itemBuilder: (context, index) => InkWell(
+                              //           onTap: () {},
+                              //           child: categoryCard(
+                              //               text1: " ${cubit.cato}")),
+                              //       separatorBuilder: (context, index) =>
+                              //           horizontalSpace(5),
+                              //       itemCount: cubit.cato.length),
+                              // ),
                               verticalSpace(10),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Text(
-                                    'المزيد',
-                                    style: AppStyles.textStyle14,
+                                  InkWell(
+                                    onTap: () {
+                                      return Navigation.goPush(
+                                          context, All_Posts_Screen());
+                                    },
+                                    child: Text(
+                                      'المزيد',
+                                      style: AppStyles.textStyle20b,
+                                    ),
                                   ),
                                   Spacer(),
                                   Text(
@@ -130,22 +136,52 @@ class HomeLayoutScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              GridView.builder(
-                                physics: BouncingScrollPhysics(),
-                                padding: EdgeInsets.only(left: 10, bottom: 20),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2),
+                              // GridView.builder(
+                              //   physics: BouncingScrollPhysics(),
+                              //   padding: EdgeInsets.only(left: 10, bottom: 20),
+                              //   gridDelegate:
+                              //       SliverGridDelegateWithFixedCrossAxisCount(
+                              //           crossAxisCount: 2),
+                              //   shrinkWrap: true,
+                              //   itemBuilder: (context, index) => InkWell(
+                              //       onTap: () {
+                              //         Navigation.goPush(
+                              //             context, Details_screen());
+                              //       },
+                              //       child: Home_Builder(
+                              //           posts: cubit.PostsFireBase[index])),
+                              //   itemCount: cubit.PostsFireBase.length,
+                              // ),
+                              GridView.count(
+                                physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 2,
                                 shrinkWrap: true,
-                                itemBuilder: (context, index) => InkWell(
-                                    onTap: () {
-                                      Navigation.goPush(
-                                          context, Details_screen());
-                                    },
-                                    child: Home_Builder(
-                                        posts: cubit.PostsFireBase[index])),
-                                itemCount: cubit.PostsFireBase.length,
-                              ),
+                                mainAxisSpacing: 10.w,
+                                crossAxisSpacing: 10.w,
+                                childAspectRatio: 9.5 / 16,
+                                children: List.generate(
+                                     cubit.PostsFireBase.length,
+                                    (index) => Material(
+                                          borderRadius:
+                                              BorderRadius.circular(15.r),
+                                          color: Color.fromARGB(
+                                              255, 234, 239, 241),
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          child: InkWell(
+                                            onTap: () {
+                                              cubit.changeCurrentTask(index);
+                                              Navigation.goPush(
+                                                context,
+                                                Details_screen(),
+                                              );
+                                            },
+                                            child: Home_Builder(
+                                                posts:
+                                                    cubit.PostsFireBase[index]),
+                                          ),
+                                        )),
+                              )
                             ],
                           ),
                         ),

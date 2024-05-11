@@ -37,7 +37,7 @@ categoryCard({
             padding: EdgeInsets.all(5.0.w),
             child: Text(
               text1,
-              style: AppStyles.textStyle14,
+              style: AppStyles.textStyle14w,
               textAlign: TextAlign.center,
             )),
       ),
@@ -86,12 +86,12 @@ itemCard({
                     children: [
                       Text(
                         'جديد',
-                        style: AppStyles.textStyle14,
+                        style: AppStyles.textStyle14b,
                       ),
                       Spacer(),
                       Text(
                         '10 طن مستعمل',
-                        style: AppStyles.textStyle14,
+                        style: AppStyles.textStyle14b,
                       ),
                     ],
                   ),
@@ -100,12 +100,12 @@ itemCard({
                     children: [
                       Text(
                         'جديد',
-                        style: AppStyles.textStyle14,
+                        style: AppStyles.textStyle14b,
                       ),
                       Spacer(),
                       Text(
                         '10 طن مستعمل',
-                        style: AppStyles.textStyle14,
+                        style: AppStyles.textStyle14b,
                       ),
                     ],
                   ),

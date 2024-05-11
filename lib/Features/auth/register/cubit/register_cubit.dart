@@ -2,6 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../../core/Services/local/secure_keys.dart';
+import '../../../../core/Services/local/secure_storage.dart';
+import '../../../../firebase/models/users_model.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -13,6 +17,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final TextEditingController passController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
+  UserModel? currentUser;
 
   bool isSecured = true;
   Widget togglePass() {
@@ -56,6 +61,11 @@ class RegisterCubit extends Cubit<RegisterStates> {
       });
 
       emit(RegisterSuccessState(userCredential.user!));
+      await SecureStorage()
+          .storage
+          .write(key: SecureKeys.userToken, value: currentUser!.token);
+      print(
+          ' The token is:  ${await SecureStorage().storage.read(key: SecureKeys.userToken)}');
       // addUserToFireStore();
     } catch (error) {
       print(error.toString());
