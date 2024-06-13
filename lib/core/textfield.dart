@@ -274,3 +274,72 @@ class DateTime_TxtField extends StatelessWidget {
     );
   }
 }
+
+class ChatTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
+  final bool obsecure;
+  final TextInputType keyboardType;
+  final ValueChanged<String>? onChanged;
+  final String? hintText;
+  final String? labelText;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final VoidCallback? onEditingCompleted;
+  final ValueChanged<String>? onFieldSubmitted;
+  final bool readOnly;
+
+
+
+
+  const ChatTextField({
+    super.key,
+    required this.controller,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+    this.obsecure = false,
+    this.readOnly = false,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.hintText,
+    this.labelText,
+    this.onChanged,
+    this.onEditingCompleted,
+    this.onFieldSubmitted,
+
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      maxLines: 5,
+      minLines: 1,
+      onFieldSubmitted: onFieldSubmitted,
+      controller: controller,
+      validator: validator,
+      keyboardType: keyboardType,
+      obscureText: obsecure,
+      onChanged: onChanged,
+      onEditingComplete: onEditingCompleted,
+      cursorColor: Colors.black,
+      readOnly: readOnly,
+      textAlign: TextAlign.end,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey[200],
+        prefixIcon: prefixIcon,
+        suffixIcon:suffixIcon,
+        suffixIconColor: MyColors.greyColor,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0).r),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30.0.r),
+            borderSide: BorderSide(
+              color: MyColors.greenColor,
+            )),
+        hintText: hintText,
+        contentPadding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 20.0.w), // Adjust the padding here
+      ),
+    );
+  }
+}
+

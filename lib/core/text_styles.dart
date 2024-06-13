@@ -5,6 +5,42 @@ import 'package:green_cycle_app/core/colors.dart';
 Color? color;
 
 abstract class AppStyles {
+
+  static  TextStyle heading20 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 20.sp,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.normal,
+  );
+  static  TextStyle heading25 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 25.sp,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.normal,
+  );
+  static  TextStyle homeHeader = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 32.sp,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.normal,
+  );
+  static  TextStyle textStyle14 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w500,
+  );
+  static  TextStyle textStyle16 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w500,
+  );
+
+  static  TextStyle textStyle11 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w500,
+  );
+
   static TextStyle textStyle18 = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 18.sp,
@@ -102,6 +138,19 @@ abstract class AppStyles {
   static TextStyle textStyle32 = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 32.sp,
+    color: MyColors.whiteColor,
+    fontWeight: FontWeight.normal,
+  );
+
+  static  TextStyle chatTextStyle16 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+  );
+
+  static  TextStyle whiteTextStyle30 = TextStyle(
+    fontFamily:'Cairo',
+    fontSize: 30.sp,
     color: MyColors.whiteColor,
     fontWeight: FontWeight.normal,
   );

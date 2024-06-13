@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/colors.dart';
 import '../../../core/text_styles.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -32,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: Center(
             child: Text(
               title?? '',
-              style: AppStyles.textStyle20w,
+              style: AppStyles.heading20,
             ),
           ),
         ),

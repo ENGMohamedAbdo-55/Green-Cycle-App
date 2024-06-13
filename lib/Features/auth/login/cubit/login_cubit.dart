@@ -4,12 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/firebase_collection/collection.dart';
-import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
-import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
-import '../../../../firebase/models/users_model.dart';
-
+import '../../model/user_model.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -36,21 +32,6 @@ class LoginCubit extends Cubit<LoginStates> {
           : const Icon(Icons.visibility_off),
       color: MyColors.greyColor,
     );
-  }
-
-  // Fetch All Users OR User details
-  Future<UserModel> getUserDetails(String email) async {
-    final snapshot =
-        await db.collection("Users").where("Email", isEqualTo: email).get();
-    final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
-    return userData;
-  }
-
-  Future<List<UserModel>> allUser() async {
-    final snapshot = await db.collection("Users").get();
-    final userData =
-        snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
-    return userData;
   }
 
   ///signIn with Google
@@ -93,48 +74,48 @@ class LoginCubit extends Cubit<LoginStates> {
         password: password,
       );
 
-      emit(LoginSuccessState(userCredential.user!));
-      await SecureStorage()
-          .storage
-          .write(key: SecureKeys.userToken, value: currentUser!.token);
-      print(
-          ' The token issssSsss:  ${await SecureStorage().storage.read(key: SecureKeys.userToken)}');
-    } catch (error) {
-      print(error.toString());
-      String errorMessage;
-      if (error.toString().contains('user-not-found')) {
-        errorMessage = "This email is not registered";
-      } else if (error.toString().contains('wrong-password')) {
-        errorMessage = "Incorrect password";
-      } else {
-        errorMessage = "An error occurred: $error";
+      User? user = userCredential.user;
+
+      if (user != null && user.emailVerified) {
+        emit(LoginSuccessState(user));
+      } else if (user != null && !user.emailVerified) {
+        // Email not verified
+        auth.signOut(); // Sign out the user
+
+        // Show Snackbar indicating that the email is not verified
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('البريد الإلكتروني لم يتم التحقق منه. الرجاء تحقق من بريدك الإلكتروني.'),
+            duration: Duration(seconds: 5),
+            backgroundColor: Colors.red,
+          ),
+        );
+
+        emit(LoginErrorState());
       }
-      emit(LoginErrorState(errorMessage));
+    } catch (error) {
+      if (error.toString().contains('user-not-found')) {
+      } else if (error.toString().contains('wrong-password')) {
+      } else {
+      }
+      emit(LoginErrorState());
     }
   }
+
 
   ///signIn with Facebook
 
-  Future<void> signInWithFacebook() async {
-    try {
-      emit(FaceBookSignInLoadingState());
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
 
-      // Trigger the sign-in flow
-      final LoginResult loginResult = await FacebookAuth.instance.login();
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider
+        .credential(loginResult.accessToken!.token);
 
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
-
-      // Sign in to Firebase with the Facebook credentials
-      final UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential);
-      emit(FaceBookSignInSuccessState(userCredential.user));
-    } catch (error) {
-      emit(FaceBookSignInErrorState(error.toString()));
-    }
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
-
   ///Reset Password
 
   void resetPassword({required String email}) async {

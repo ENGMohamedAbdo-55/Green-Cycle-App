@@ -1,11 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/register/register_screen.dart';
-import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
-
 import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';
 import '../cubit/login_cubit.dart';
@@ -30,7 +24,7 @@ class MyDivider extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 2.w),
           child: Text(
             'او',
-            style: AppStyles.textStyle11b,
+            style: AppStyles.textStyle11,
           ),
         ),
         Expanded(
@@ -90,38 +84,38 @@ class GoogleAndFace extends StatelessWidget {
           ),
         ),
         SizedBox(width: 50.w),
-        // GestureDetector(
-        //   onTap: (){
-        //     cubit.signInWithFacebook();
-        //   },
-        //   child: Container(
-        //     alignment: Alignment.centerRight,
-        //     height: 50.h,
-        //     width: 100.w,
-        //     decoration: BoxDecoration(
-        //       color: Colors.transparent,
-        //       borderRadius: BorderRadius.circular(10.r),
-        //       border: Border.all(
-        //         color: MyColors.greenColor,
-        //       ),
-        //     ),
-        //     child:Row(
-        //       mainAxisAlignment: MainAxisAlignment.end,
-        //       children: [
-        //         Text(
-        //           'التسجيل بفيس بوك',
-        //           style: AppStyles.greenTextStyle8
-        //         ),
-        //         Icon(
-        //               Icons.facebook,
-        //               size: 25.sp,
-        //               color: MyColors.greenColor,
-        //               ),
-        //       ],
-        //     ),
+        GestureDetector(
+          onTap: (){
+            cubit.signInWithFacebook();
+          },
+          child: Container(
+            alignment: Alignment.centerRight,
+            height: 50.h,
+            width: 100.w,
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(
+                color: MyColors.greenColor,
+              ),
+            ),
+            child:Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'التسجيل بفيس بوك',
+                  style: AppStyles.greenTextStyle8
+                ),
+                Icon(
+                      Icons.facebook,
+                      size: 25.sp,
+                      color: MyColors.greenColor,
+                      ),
+              ],
+            ),
 
-        //   ),
-        // ),
+          ),
+        ),
 
       ],
     );

@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../../../core/Services/local/secure_keys.dart';
-import '../../../../core/Services/local/secure_storage.dart';
-import '../../../../firebase/models/users_model.dart';
+import 'package:green_cycle_app/Features/auth/model/user_model.dart';
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
@@ -17,7 +15,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final TextEditingController passController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
-  UserModel? currentUser;
 
   bool isSecured = true;
   Widget togglePass() {
@@ -41,54 +38,85 @@ class RegisterCubit extends Cubit<RegisterStates> {
   }) async {
     emit(RegisterLoadingState());
     try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
-
-      // Update user's display name
-      await userCredential.user!.updateDisplayName(name);
-
-      // Save user data to Firestore
-      await FirebaseFirestore.instance
-          .collection('Users')
-          .doc(userCredential.user!.uid)
-          .set({
-        'name': name,
-        'phone': phone,
-        'email': email,
-        // Add fields as needed
+      )
+          .then((value) {
+        userCreate(
+          name: name,
+          email: email,
+          phone: phone,
+          uId: value.user!.uid,
+        );
+        sendVerificationEmail(value.user!); // Send verification email
+        emit(RegisterSuccessState());
+      }).catchError((error) {
+        emit(RegisterErrorState(error.toString()));
       });
-
-      emit(RegisterSuccessState(userCredential.user!));
-      await SecureStorage()
-          .storage
-          .write(key: SecureKeys.userToken, value: currentUser!.token);
-      print(
-          ' The token is:  ${await SecureStorage().storage.read(key: SecureKeys.userToken)}');
-      // addUserToFireStore();
     } catch (error) {
-      print(error.toString());
       emit(RegisterErrorState(error.toString()));
     }
   }
 
-  // void addUserToFireStore() {
-  //   FirebaseFirestore.instance
-  //       .collection('Users')
-  //       .add(
-  //         {
-  //           'uid': FirebaseAuth.instance.currentUser?.uid,
-  //           'email': FirebaseAuth.instance.currentUser?.email,
-  //         },
-  //       )
-  //       .then(
-  //         (value) => print('Add User To FireStore Successfully'),
-  //       )
-  //       .catchError(
-  //         (onError) {
-  //           print('Add User To FireStore Error $onError');
-  //         },
-  //       );
-  // }
+  void userCreate({
+    required String name,
+    required String email,
+    required String phone,
+    required String uId,
+  }) async {
+    emit(CreateUserLoadingState());
+    UserModel model = UserModel(
+      uId: uId,
+      name: name,
+      phone: phone,
+      email: email,
+      image: 'https://i1.sndcdn.com/avatars-a7JCWthJzjAGAoxy-1jOiGg-t500x500.jpg',
+    );
+
+    try {
+      // Check if the email is verified
+      await FirebaseAuth.instance.authStateChanges().
+      firstWhere((user) => user != null && user.emailVerified
+      );
+      // Email is verified, proceed to store in Firestore
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(uId)
+          .set(model.toMap())
+          .then((value) {
+        emit(CreateUserSuccessState());
+      }).catchError((error) {
+        emit(CreateUserErrorState(error.toString()));
+      });
+    } catch (error) {
+      // Handle error
+      if (kDebugMode) {
+        print("Error verifying email: $error");
+      }
+      emit(CreateUserErrorState("Please verify your email before proceeding."));
+    }
+  }
+
+
+  void sendVerificationEmail(User user) async {
+    try {
+      await user.sendEmailVerification();
+      emit(VerificationEmailSentState());
+
+      // email verification status
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        if (user != null && user.emailVerified) {
+          // email is verified
+          emit(VerificationSuccessState());
+        }
+      });
+    } catch (error) {
+      if (kDebugMode) {
+        print("Failed to send verification email: $error");
+      }
+      emit(VerificationEmailErrorState(error.toString()));
+    }
+  }
 }

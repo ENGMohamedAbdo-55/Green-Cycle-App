@@ -5,14 +5,13 @@ import 'package:green_cycle_app/Features/auth/login/reset_password.dart';
 import 'package:green_cycle_app/Features/auth/login/screen/login_form.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
 import 'package:green_cycle_app/Features/auth/register/register_screen.dart';
-import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
-import 'package:green_cycle_app/Features/home/view/components/buttons.dart';
-import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
-
+import 'package:green_cycle_app/Features/chat/ui/chat_home.dart';
 import '../../../../core/Services/Navigation.dart';
 import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';
 import '../../../../core/textfield.dart';
+import '../../../home/view/components/buttons.dart';
+import '../../../home/view/components/navigation_const.dart';
 import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,7 +23,7 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigation.goPushReplace(context, Home_Screen());
+          Navigation.goPushReplace(context,const ChatHome());
         }
       },
       child: Scaffold(
@@ -115,9 +114,9 @@ class LoginScreen extends StatelessWidget {
                       );
                     } else if (state is LoginErrorState) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(state.error),
-                          duration: const Duration(seconds: 2),
+                        const SnackBar(
+                          content: Text('حدث خطأ اثناء تسجيل الدخول حاول مره اخري'),
+                          duration: Duration(seconds: 2),
                           backgroundColor:
                               Colors.red, // Adjust duration as needed
                         ),
@@ -161,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     Text(
                       'ليس لديك حساب؟',
-                      style: AppStyles.textStyle11b,
+                      style: AppStyles.textStyle11,
                     ),
                   ],
                 ),

@@ -12,6 +12,7 @@ import 'package:green_cycle_app/Features/splash/splash_screen.dart';
 import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
 import 'Features/auth/login/cubit/login_cubit.dart';
 import 'Features/auth/login/screen/login_screen.dart';
+import 'Features/chat/cubit/chat_cubit.dart';
 import 'Features/home/view/Screens/details_screen.dart';
 import 'Features/home/view/Screens/sidebar_menu.dart';
 import 'core/Services/local/secure_storage.dart';
@@ -60,7 +61,11 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (BuildContext context) =>
                   HomeScreenCubit()..getAllPostsFromFireBase(),
+            ),
+            BlocProvider(
+              create: (BuildContext context) => ChatCubit()..getUsers(),
             )
+
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

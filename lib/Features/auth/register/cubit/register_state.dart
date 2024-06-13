@@ -12,11 +12,29 @@ class TogglePasswordState extends RegisterStates {
 }
 
 class RegisterLoadingState extends RegisterStates {}
-class RegisterSuccessState extends RegisterStates {
-  final User user;
-  RegisterSuccessState(this.user);
-}
+class RegisterSuccessState extends RegisterStates {}
 class RegisterErrorState extends RegisterStates {
   final String error;
   RegisterErrorState(this.error);
 }
+
+
+class CreateUserLoadingState extends RegisterStates {}
+class CreateUserSuccessState extends RegisterStates {}
+class CreateUserErrorState extends RegisterStates {
+  final String error;
+  CreateUserErrorState(this.error);
+}
+
+class VerificationEmailSentState extends RegisterStates {}
+class VerificationSuccessState extends RegisterStates {}
+class VerificationEmailErrorState extends RegisterStates {
+  final String error;
+  VerificationEmailErrorState(this.error);
+}
+
+
+/*
+  final User user;
+  RegisterSuccessState(this.user);
+*/
