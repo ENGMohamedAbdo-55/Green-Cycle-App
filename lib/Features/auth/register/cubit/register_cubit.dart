@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:green_cycle_app/Features/auth/model/user_model.dart';
+
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitial());
+
   static RegisterCubit get(context) => BlocProvider.of(context);
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
@@ -17,6 +19,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   bool isSecured = true;
+
   Widget togglePass() {
     return IconButton(
       onPressed: () {
@@ -44,6 +47,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         password: password,
       )
           .then((value) {
+            print("FirebaseAuth Value ${value.user!.uid}");
         userCreate(
           name: name,
           email: email,
@@ -72,14 +76,15 @@ class RegisterCubit extends Cubit<RegisterStates> {
       name: name,
       phone: phone,
       email: email,
-      image: 'https://i1.sndcdn.com/avatars-a7JCWthJzjAGAoxy-1jOiGg-t500x500.jpg',
+      image:
+          'https://i1.sndcdn.com/avatars-a7JCWthJzjAGAoxy-1jOiGg-t500x500.jpg',
     );
 
     try {
       // Check if the email is verified
-      await FirebaseAuth.instance.authStateChanges().
-      firstWhere((user) => user != null && user.emailVerified
-      );
+      await FirebaseAuth.instance
+          .authStateChanges()
+          .firstWhere((user) => user != null && user.emailVerified);
       // Email is verified, proceed to store in Firestore
       await FirebaseFirestore.instance
           .collection('Users')
@@ -98,7 +103,6 @@ class RegisterCubit extends Cubit<RegisterStates> {
       emit(CreateUserErrorState("Please verify your email before proceeding."));
     }
   }
-
 
   void sendVerificationEmail(User user) async {
     try {
