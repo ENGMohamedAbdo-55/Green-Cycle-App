@@ -4,6 +4,8 @@ import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
 import 'package:green_cycle_app/Features/onBoarding/contents.dart';
 import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
 
+import '../../core/Services/local/secure_keys.dart';
+import '../../core/Services/local/secure_storage.dart';
 import '../../core/colors.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -40,6 +42,7 @@ class OnBoardingScreen extends StatelessWidget {
                   onPressed: () {
                     if (boardController.page == boarding.length - 1) {
                       navigateAndFinish(context, const LoginScreen());
+                      SecureStorage().setSecureData(SecureKeys.hasSeenOnboarding ,'true');
 
                     } else {
                       boardController.nextPage(

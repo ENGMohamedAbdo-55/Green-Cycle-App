@@ -32,22 +32,18 @@ class ChatCubit extends Cubit<ChatStates> {
     required String dateTime,
     required String text,
   }) {
-    // print("userModel: $userModel");
-    //
-    // if (userModel == null) {
-    //   emit(SendMessageErrorState());
-    //   return;
-    // }
+
+
 
     MessageModel model = MessageModel(
       text: text,
       receiverID: receiverID,
-      senderID: '3DlnTn870Lcw46x2VzHlhzQ4dDE2',
+      senderID: userModel!.uId,
       dateTime: dateTime,
     );
     FirebaseFirestore.instance
         .collection('Users')
-        .doc('3DlnTn870Lcw46x2VzHlhzQ4dDE2')
+        .doc(userModel!.uId)
         .collection('chats')
         .doc(receiverID)
         .collection('messages')
@@ -59,26 +55,20 @@ class ChatCubit extends Cubit<ChatStates> {
           .collection('Users')
           .doc(receiverID)
           .collection('chats')
-          .doc('3DlnTn870Lcw46x2VzHlhzQ4dDE2')
+          .doc(userModel!.uId)
           .collection('messages')
           .add(model.toMap())
           .then((value) {
         print('Message sent successfully to receiver\'s chat');
         emit(SendMessageSuccessState());
-        // MessageModel messageModel = MessageModel(
-        //   senderID: '3DlnTn870Lcw46x2VzHlhzQ4dDE2',
-        //   receiverID: receiverID,
-        //   dateTime: dateTime,
-        //   text: text,
-        // );
-        // messages.add(messageModel);
+
         emit(GetMessageSuccessState());
         if (listScrollController.hasClients) {
           final position = listScrollController.position.maxScrollExtent;
           // listScrollController.jumpTo(position);
           listScrollController.animateTo(
             position,
-            duration: Duration(milliseconds: 700),
+            duration: const Duration(milliseconds: 700),
             curve: Curves.easeOut,
           );
         }
@@ -97,18 +87,32 @@ class ChatCubit extends Cubit<ChatStates> {
   void getMessages({required String receiverID}) {
     FirebaseFirestore.instance
         .collection('Users')
-        .doc('3DlnTn870Lcw46x2VzHlhzQ4dDE2')
+        .doc(userModel!.uId)
         .collection('chats')
         .doc(receiverID)
         .collection('messages')
         .orderBy('dateTime')
         .snapshots()
         .listen((event) {
-      messages = [];
+      final int previousLength = messages.length;
+      messages.clear();
+      //messages = [];
       event.docs.forEach((element) {
         messages.add(MessageModel.fromJson(element.data()));
       });
       emit(GetMessageSuccessState());
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (listScrollController.hasClients) {
+          final position = listScrollController.position.maxScrollExtent +
+              (messages.length - previousLength) * 15.0; // Height of separator
+          listScrollController.animateTo(
+            position,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
     });
   }
 }

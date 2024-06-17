@@ -1,9 +1,12 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
+import '../../../../core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
 import '../../model/user_model.dart';
 part 'login_state.dart';
@@ -19,6 +22,7 @@ class LoginCubit extends Cubit<LoginStates> {
   final auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
   UserModel? currentUser;
+  final SecureStorage secureStorage=SecureStorage();
 
   bool isSecured = true;
   Widget togglePass() {
@@ -78,6 +82,11 @@ class LoginCubit extends Cubit<LoginStates> {
 
       if (user != null && user.emailVerified) {
         emit(LoginSuccessState(user));
+        UserModel userModel = await fetchUserData(user.uid);
+        currentUser = userModel;
+
+        // Save user token to secure storage
+        await saveUserToken(user.uid);// Save The User
       } else if (user != null && !user.emailVerified) {
         // Email not verified
         auth.signOut(); // Sign out the user
@@ -127,4 +136,13 @@ class LoginCubit extends Cubit<LoginStates> {
       emit(PasswordResetErrorState(error.toString()));
     }
   }
+  Future<UserModel> fetchUserData(String userId) async {
+    DocumentSnapshot documentSnapshot =
+    await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+    return UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+  }
+  Future<void> saveUserToken (String token) async{
+    await secureStorage.setSecureData(SecureKeys.userToken, token);
+  }
+
 }

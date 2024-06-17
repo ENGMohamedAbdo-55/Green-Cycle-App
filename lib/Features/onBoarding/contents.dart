@@ -49,7 +49,7 @@ Widget buildBoardingItem(context, BoardingModel model) => Column(
             Positioned(
               top: MediaQuery.of(context).size.height *
                   0.06, // Adjust this value to center the image vertically
-              left: MediaQuery.of(context).size.width * 0.45 -
+              left: MediaQuery.of(context).size.width * 0.50 -
                   100, // Adjust this value to center the image horizontally
               child: Image(
                 image: AssetImage(model.image),

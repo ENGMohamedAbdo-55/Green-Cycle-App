@@ -47,6 +47,7 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
+          cubit.userModel = userModel; // Set the userModel in ChatCubit
           cubit.getMessages(receiverID: userModel.uId ?? '');
           return BlocConsumer<ChatCubit, ChatStates>(
             listener: (context, state) {
@@ -68,7 +69,7 @@ class ChatScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           var message = cubit.messages[index];
-                          if (cubit.userModel?.uId == message.senderID) {
+                          if (message.senderID == cubit.userModel!.uId) {
                             return buildMyMessage(context, message);
                           } else {
                             return buildMessage(context, message);

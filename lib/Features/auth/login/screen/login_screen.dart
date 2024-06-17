@@ -6,6 +6,7 @@ import 'package:green_cycle_app/Features/auth/login/screen/login_form.dart';
 import 'package:green_cycle_app/Features/auth/register/contents.dart';
 import 'package:green_cycle_app/Features/auth/register/register_screen.dart';
 import 'package:green_cycle_app/Features/chat/ui/chat_home.dart';
+import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
 import '../../../../core/Services/Navigation.dart';
 import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';
@@ -23,7 +24,7 @@ class LoginScreen extends StatelessWidget {
     return BlocListener<LoginCubit, LoginStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Navigation.goPushReplace(context,const ChatHome());
+          Navigation.goPushReplace(context,const Home_Screen());
         }
       },
       child: Scaffold(
