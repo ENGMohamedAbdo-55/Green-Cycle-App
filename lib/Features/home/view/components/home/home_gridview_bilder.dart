@@ -21,7 +21,9 @@ class Home_Builder extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeScreenCubit.get(context);
         return SizedBox(
-          child: Card(
+          child: 
+          
+           Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.r),
               side: BorderSide(

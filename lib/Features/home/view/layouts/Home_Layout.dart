@@ -160,7 +160,7 @@ class HomeLayoutScreen extends StatelessWidget {
                                 crossAxisSpacing: 10.w,
                                 childAspectRatio: 9.5 / 16,
                                 children: List.generate(
-                                     cubit.PostsFireBase.length,
+                                    cubit.PostsFireBase.length,
                                     (index) => Material(
                                           borderRadius:
                                               BorderRadius.circular(15.r),
@@ -173,12 +173,17 @@ class HomeLayoutScreen extends StatelessWidget {
                                               cubit.changeCurrentTask(index);
                                               Navigation.goPush(
                                                 context,
-                                                Details_screen(),
+                                                Details_screen(
+                                                  id: cubit
+                                                      .PostsFireBase[index].id!,
+                                                      cartModel: cubit.PostsFireBase[index],
+                                                ),
                                               );
                                             },
                                             child: Home_Builder(
-                                                posts:
-                                                    cubit.PostsFireBase[index]),
+                                              posts: cubit.PostsFireBase[index],
+                                              //id: cubit.PostsFireBase[index].id!,
+                                            ),
                                           ),
                                         )),
                               )

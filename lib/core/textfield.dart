@@ -18,20 +18,23 @@ class DefaultTextField extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final bool readOnly;
 
+ 
+
   const DefaultTextField({
     super.key,
     required this.controller,
     this.validator,
-    this.keyboardType = TextInputType.text,
     this.obsecure = false,
-    this.readOnly = false,
-    this.suffixIcon,
-    this.prefixIcon,
+    this.keyboardType = TextInputType.text,
+    this.onChanged,
     this.hintText,
     this.labelText,
-    this.onChanged,
+    this.suffixIcon,
+    this.prefixIcon,
     this.onEditingCompleted,
     this.onFieldSubmitted,
+    this.readOnly = false,
+
   });
 
   @override
@@ -58,6 +61,7 @@ class DefaultTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(15.0.r),
             borderSide: BorderSide(
               color: MyColors.greenColor,
+              
             )),
         hintText: hintText,
       ),

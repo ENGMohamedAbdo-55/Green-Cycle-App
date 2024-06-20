@@ -5,8 +5,10 @@ import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';
 
 class CartItem extends StatelessWidget {
+  final String title;
+  final String img;
   const CartItem({
-    super.key,
+    super.key, required this.title, required this.img,
   });
 
   @override
@@ -66,7 +68,7 @@ class CartItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              " طن حديد مستعمل",
+                             title,
                               style: AppStyles.textStyle16b
                                   .copyWith(color: Colors.black),
                               textAlign: TextAlign.end,
@@ -102,7 +104,7 @@ class CartItem extends StatelessWidget {
                       const SizedBox(
                         width: 10,
                       ),
-                      Image.asset("assets/images/cart/cartitemimg.png"),
+                      Image.asset(img),
                     ],
                   )
                 ],

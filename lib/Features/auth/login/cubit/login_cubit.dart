@@ -9,6 +9,7 @@ import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
 import '../../../../core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
 import '../../model/user_model.dart';
+import '../screen/login_screen.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
@@ -36,6 +37,22 @@ class LoginCubit extends Cubit<LoginStates> {
           : const Icon(Icons.visibility_off),
       color: MyColors.greyColor,
     );
+  }
+
+
+  ///signout with Google
+Future<void> signOut(BuildContext context) async {
+    try {
+      await auth.signOut();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    } catch (e) {
+      print('Error signing out: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error signing out. Please try again.')),
+      );
+    }
   }
 
   ///signIn with Google

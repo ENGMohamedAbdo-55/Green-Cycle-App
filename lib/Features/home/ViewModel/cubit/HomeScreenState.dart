@@ -30,3 +30,14 @@ class TakePhotoSuccess extends HomeScreenState {}
 
 class TakePhotoError extends HomeScreenState {}
 
+
+class CartLoading extends HomeScreenState {}
+
+class CartLoaded extends HomeScreenState {
+  
+}
+
+class CartError extends HomeScreenState {
+ 
+}
+

@@ -24,12 +24,11 @@ class Post_Screen extends StatelessWidget {
       listener: (context, state) {
         if (state is AddPostSuccessState) {
           print('objectffffffffffahhhhhhhhhhhhhhhhhhaahahashdhsadhhada');
-          // Navigation.goPush(context, Home_Screen());
+          Navigation.goPush(context, Home_Screen());
         }
         // TODO: implement listener
       },
       builder: (context, state) {
-        HomeScreenCubit.get(context).clearControllers();
         var cubit = HomeScreenCubit.get(context);
 
         return Scaffold(

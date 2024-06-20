@@ -57,8 +57,7 @@ class Payment_type extends StatelessWidget {
                   size: 20.sp,
                   color: Colors.white,
                 ),
-                style: const ButtonStyle(
-                  alignment: Alignment.center),
+                style: const ButtonStyle(alignment: Alignment.center),
                 value: 1,
                 groupValue: cubit.groupValue,
                 child: Text(

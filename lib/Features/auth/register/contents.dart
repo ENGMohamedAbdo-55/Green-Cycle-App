@@ -7,9 +7,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback ?onBackButtonPressed;
   final String ?title;
   final Widget ?leading; // Reusable leading widget
+  final List ?actions; // Reusable leading widget
 
 
   const CustomAppBar({
+    this.actions,
     this.leading,
      this.onBackButtonPressed,
      this.title,
@@ -19,6 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: const [],
       leading: leading,
       toolbarHeight: 110.h,
       backgroundColor: Colors.transparent,
@@ -41,7 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(110);
+  Size get preferredSize => const Size.fromHeight(110);
 }
 
 class AppBarClipper extends CustomClipper<Path>

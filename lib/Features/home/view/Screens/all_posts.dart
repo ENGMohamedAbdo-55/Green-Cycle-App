@@ -34,7 +34,10 @@ class All_Posts_Screen extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20.0.w, right: 20.w, ),
+                padding: EdgeInsets.only(
+                  left: 20.0.w,
+                  right: 20.w,
+                ),
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
@@ -53,7 +56,10 @@ class All_Posts_Screen extends StatelessWidget {
                                 cubit.changeCurrentTask(index);
                                 Navigation.goPush(
                                   context,
-                                  Details_screen(),
+                                  Details_screen(
+                                    id: cubit.PostsFireBase[index].id!,
+                                    cartModel: cubit.PostsFireBase[index],
+                                  ),
                                 );
                               },
                               child: Home_Builder(

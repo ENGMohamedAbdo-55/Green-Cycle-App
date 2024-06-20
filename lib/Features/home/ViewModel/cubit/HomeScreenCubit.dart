@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:green_cycle_app/Features/profile/view/screens/profile_screen.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -49,13 +51,40 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     groupValue = newValue;
     emit(ChangeGroupValue());
   }
-  
+
   void clearControllers() {
     titleController.clear();
     descriptionController.clear();
     dateController.clear();
     timeController.clear();
   }
+
+
+
+List<PostModelFireBase> cartList = [];
+
+Future<void> getCartPosts() async {
+  emit(CartLoading());
+  try {
+    var querySnapshot = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("Cart")
+        .get();
+
+    cartList = querySnapshot.docs.map((doc) =>
+        PostModelFireBase.fromJson(doc.data() as Map<String, dynamic>)).toList();
+
+    emit(CartLoaded());
+  } catch (error) {
+    print("Error fetching cart posts: $error");
+    emit(CartError());
+  }
+}
+
+
+
+
 
   File? cameraFile;
   String? cameraUrl;
@@ -67,8 +96,8 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       final XFile? imageCamera =
           await picker.pickImage(source: ImageSource.camera);
       if (imageCamera != null) {
-        cameraFile = File(imageCamera!.path);
-        var cameraImageName = basename(imageCamera!.path);
+        cameraFile = File(imageCamera.path);
+        var cameraImageName = basename(imageCamera.path);
         var camerafilerefrence = FirebaseStorage.instance.ref(cameraImageName);
         await camerafilerefrence.putFile(cameraFile!);
         cameraUrl = await camerafilerefrence.getDownloadURL();
@@ -89,7 +118,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
       final XFile? imageGallery =
           await picker.pickImage(source: ImageSource.gallery);
       if (imageGallery != null) {
-        galleryFile = File(imageGallery!.path);
+        galleryFile = File(imageGallery.path);
         var galleryImageName = basename(imageGallery.path);
         var galleryfilerefrence =
             FirebaseStorage.instance.ref(galleryImageName);
@@ -142,11 +171,11 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   ];
 
   List<Widget> layouts = [
-    HomeLayoutScreen(),
-    HomeLayoutScreen(),
-    Post_Screen(),
-    CartScreen(),
-    HomeLayoutScreen(),
+    const HomeLayoutScreen(),
+    const HomeLayoutScreen(),
+    const Post_Screen(),
+    const CartScreen(),
+     UserProfileScreen(),
 
     // DoctorsScreen(),
     // Search(),
@@ -189,7 +218,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
         .snapshots()
         .listen((value) {
       PostsFireBase = [];
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         PostModelFireBase currentPost =
             PostModelFireBase.fromJson(element.data());
         currentPost.id = element.id;
@@ -197,7 +226,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
           currentPost,
         );
         // print(element.data());
-      });
+      }
       emit(GetPostSuccess());
     }).onError((error) {
       print('Get All Posts FireBase Error $error');
@@ -205,6 +234,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     });
   }
 }
+
 
 class SliderModel {
   String? image;

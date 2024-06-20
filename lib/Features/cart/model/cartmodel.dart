@@ -2,14 +2,14 @@ class CartItemModel {
   final String id;
   final String name;
   final String description;
-  final double price;
+ // final double price;
   final String imageUrl;
 
   CartItemModel({
     required this.id,
     required this.name,
     required this.description,
-    required this.price,
+  //  required this.price,
     required this.imageUrl,
   });
 
@@ -18,7 +18,7 @@ class CartItemModel {
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
-      price: json['price'] as double,
+    //  price: json['price'] as double,
       imageUrl: json['imageUrl'] as String,
     );
   }
@@ -28,7 +28,7 @@ class CartItemModel {
       'id': id,
       'name': name,
       'description': description,
-      'price': price,
+      //'price': price,
       'imageUrl': imageUrl,
     };
   }

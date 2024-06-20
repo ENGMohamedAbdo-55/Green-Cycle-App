@@ -31,6 +31,8 @@ class PostModelFireBase {
     galleryUrl = json['galleryUrl'];
   }
 
+  get isEmpty => null;
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,
