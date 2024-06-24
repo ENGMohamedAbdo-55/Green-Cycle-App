@@ -10,7 +10,9 @@ import 'package:green_cycle_app/Features/cart/view/widgets/empty_cart_img.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
 
+import '../../../../core/Services/Navigation.dart';
 import '../../../../core/colors.dart';
+import '../../../home/view/Screens/details_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -47,12 +49,25 @@ class CartScreen extends StatelessWidget {
                           //HomeScreenCubit.get(context).cartList.length ,
 
                           itemBuilder: (context, Index) {
-                            return  CartItem(
-                              title: HomeScreenCubit.get(context).cartList[Index].title! ,
-                              img:HomeScreenCubit.get(context).cartList[Index].galleryUrl! ,
+                            return  InkWell(
+                             onTap: () {
+                                              HomeScreenCubit.get(context).changeCurrentTask(Index);
+                                              Navigation.goPush(
+                                                context,
+                                                Details_screen(
+                                                  id: HomeScreenCubit.get(context).cartList[Index].id!,
+                                                    
+                                                      cartModel: HomeScreenCubit.get(context).PostsFireBase[Index],
+                                                ),
+                                              );
+                                            },
+                              child: CartItem(
+                                title: HomeScreenCubit.get(context).cartList[Index].title! ,
+                                img:HomeScreenCubit.get(context).cartList[Index].galleryUrl! ,
+                              ),
                             );
                           }),
-                    )
+                    ),
                   ],
                 ),
         );
@@ -64,25 +79,3 @@ class CartScreen extends StatelessWidget {
 
 
 
-// class CartScreen extends StatelessWidget {
-//   const CartScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: CustomAppBar(
-//         leading: IconButton(
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//           icon: const Icon(Icons.arrow_back_ios),
-//           color: MyColors.whiteColor,
-//         ),
-//         title: 'السله',
-//       ),
-//       body:  const SingleChildScrollView(
-//         child: CartItem()
-//       ),
-//     );
-//   }
-// }
