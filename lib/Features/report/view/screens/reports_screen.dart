@@ -36,7 +36,8 @@ class ReportsScreen extends StatelessWidget {
                     itemCount: cubit
                         .firebaseReports.length, // Number of items in the list
                     itemBuilder: (context, index) {
-                      return ReportItem(reports: cubit.firebaseReports[index]);
+                      return GestureDetector(
+                        child: ReportItem(reports: cubit.firebaseReports[index]));
                     },
                   ),
           );

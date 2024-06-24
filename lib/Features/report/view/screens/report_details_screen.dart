@@ -7,28 +7,29 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_cycle_app/Features/home/Model/post_model.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
+import 'package:green_cycle_app/Features/report/view%20model/cubit/report_cubit.dart';
 import 'package:green_cycle_app/core/Services/spacing.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';
 import '../../../../core/widgets.dart';
 
-class Details_screen extends StatelessWidget {
+class ReportDetailsScreen extends StatelessWidget {
   String id;
-  PostModelFireBase cartModel;
+
   User? user = FirebaseAuth.instance.currentUser;
-  Details_screen({
+  ReportDetailsScreen({
     Key? key,
     required this.id,
-    required this.cartModel,
+ 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeScreenCubit, HomeScreenState>(
+    return BlocBuilder<ReportCubit, ReportState>(
       builder: (context, state) {
         HomeScreenCubit.get(context).initControllerFireBase();
-        var cubit = HomeScreenCubit.get(context);
+        var cubit = ReportCubit.get(context);
 
         return Scaffold(
           body: Padding(
@@ -39,7 +40,7 @@ class Details_screen extends StatelessWidget {
                   Stack(
                     children: [
                       Image.network(
-                        cubit.cameraUrl ?? "assets/images/cart/cartitemimg.png",
+                        cubit.reportCameraUrl ?? "assets/images/cart/cartitemimg.png",
                         width: double.infinity,
                         height: 300, fit: BoxFit.fill,
 
@@ -92,7 +93,7 @@ class Details_screen extends StatelessWidget {
                               child: Text(
                                 textAlign: TextAlign.end,
                                 maxLines: 8,
-                                cubit.titleController.text ?? '{id.title}',
+                                "تقرير",
                                 style: AppStyles.textStyle20bbold,
                               ),
                             ),
@@ -150,36 +151,7 @@ class Details_screen extends StatelessWidget {
                           color: Colors.black,
                         ),
                         verticalSpace(25),
-                        InkWell(
-                          onTap: () {
-                            FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .collection('Cart')
-                                .add({
-                              "cameraUrl": cartModel.cameraUrl,
-                              "date": cartModel.date,
-                              "description": cartModel.description,
-                              "galleryUrl": cartModel.galleryUrl,
-                              "time": cartModel.time,
-                              "title": cartModel.title,
-                            }).then((value) {
-                              Fluttertoast.showToast(
-                                  msg: "this post is added to favorite",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
-                            });
-                          },
-                          child: custombutton(
-                              color: MyColors.greenColor,
-                              fontcolor: Colors.white,
-                              text: 'Add To Cart'),
-                        ),
-                     
+                       
 
                       ],
                     ),
