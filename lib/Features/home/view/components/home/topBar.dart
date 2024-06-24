@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/home/view/Screens/search_screen.dart';
+import '../../Screens/search_screen.dart';
 
 import '../../../../../core/Services/Navigation.dart';
 import '../../../../../core/Services/spacing.dart';

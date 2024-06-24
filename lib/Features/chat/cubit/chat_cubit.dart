@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:green_cycle_app/Features/chat/model/message_model.dart';
+import '../model/message_model.dart';
 import '../../auth/model/user_model.dart';
 
 part 'chat_state.dart';

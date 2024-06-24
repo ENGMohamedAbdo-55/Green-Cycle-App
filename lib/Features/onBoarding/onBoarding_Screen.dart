@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
-import 'package:green_cycle_app/Features/onBoarding/contents.dart';
-import 'package:green_cycle_app/Features/home/view/components/navigation_const.dart';
+import '../auth/login/screen/login_screen.dart';
+import 'contents.dart';
+import '../home/view/components/navigation_const.dart';
 
 import '../../core/Services/local/secure_keys.dart';
 import '../../core/Services/local/secure_storage.dart';

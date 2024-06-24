@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/model/user_model.dart';
-import 'package:green_cycle_app/Features/chat/cubit/chat_cubit.dart';
-import 'package:green_cycle_app/Features/chat/ui/chat_screen.dart';
+import '../../auth/model/user_model.dart';
+import '../cubit/chat_cubit.dart';
+import 'chat_screen.dart';
 
 import '../../../core/divider.dart';
 import '../../../core/navigation_const.dart';

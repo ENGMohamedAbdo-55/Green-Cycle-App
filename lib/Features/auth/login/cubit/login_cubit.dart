@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
+import '../../../../core/Services/local/secure_keys.dart';
 import '../../../../core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
 import '../../model/user_model.dart';

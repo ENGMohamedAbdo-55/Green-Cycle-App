@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/register/contents.dart';
-import 'package:green_cycle_app/Features/cart/view/widgets/cart_item.dart';
-import 'package:green_cycle_app/Features/cart/view/widgets/empty_cart_img.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
+import '../../../auth/register/contents.dart';
+import '../widgets/cart_item.dart';
+import '../widgets/empty_cart_img.dart';
+import '../../../home/ViewModel/cubit/HomeScreenCubit.dart';
+import '../../../home/ViewModel/cubit/HomeScreenState.dart';
 
 import '../../../../core/Services/Navigation.dart';
 import '../../../../core/colors.dart';

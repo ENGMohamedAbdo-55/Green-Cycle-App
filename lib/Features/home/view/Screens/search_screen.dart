@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/firebase_collection/collection.dart';
-import 'package:green_cycle_app/core/Services/spacing.dart';
+import '../../ViewModel/firebase_collection/collection.dart';
+import '../../../../core/Services/spacing.dart';
 
 import '../../../../core/colors.dart';
 

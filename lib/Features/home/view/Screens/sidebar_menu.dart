@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
-import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
-import 'package:green_cycle_app/core/Services/spacing.dart';
-import 'package:green_cycle_app/core/colors.dart';
+import '../../ViewModel/cubit/HomeScreenCubit.dart';
+import '../../ViewModel/cubit/HomeScreenState.dart';
+import '../../../../core/Services/spacing.dart';
+import '../../../../core/colors.dart';
 
 import '../components/home/info_card.dart';
 

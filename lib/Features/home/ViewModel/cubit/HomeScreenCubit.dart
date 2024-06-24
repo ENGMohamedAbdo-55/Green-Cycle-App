@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:green_cycle_app/Features/profile/view/screens/profile_screen.dart';
+import '../../../profile/view/screens/profile_screen.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

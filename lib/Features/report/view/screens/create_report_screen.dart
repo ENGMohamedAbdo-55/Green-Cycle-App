@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:green_cycle_app/Features/auth/register/contents.dart';
-import 'package:green_cycle_app/Features/report/view%20model/cubit/report_cubit.dart';
+import '../../../auth/register/contents.dart';
+import '../../view%20model/cubit/report_cubit.dart';
 
 import '../../../../core/colors.dart';
 import '../../../../core/text_styles.dart';

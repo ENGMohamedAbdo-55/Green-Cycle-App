@@ -1,6 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:green_cycle_app/Features/onBoarding/onBoarding_Screen.dart';
+import '../onBoarding/onBoarding_Screen.dart';
 
 class SplashScreen extends StatelessWidget {
   final Widget startWidget;

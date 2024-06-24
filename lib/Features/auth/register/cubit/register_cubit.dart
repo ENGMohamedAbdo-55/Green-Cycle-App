@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:green_cycle_app/Features/auth/model/user_model.dart';
+import '../../model/user_model.dart';
 
 part 'register_state.dart';
 

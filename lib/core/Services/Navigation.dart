@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:green_cycle_app/Features/home/view/Screens/details_screen.dart';
+import '../../Features/home/view/Screens/details_screen.dart';
 
 class Navigation{
   static void goPush(context,Widget screen)

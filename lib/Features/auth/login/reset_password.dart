@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/login/cubit/login_cubit.dart';
-import 'package:green_cycle_app/Features/auth/register/contents.dart';
+import 'cubit/login_cubit.dart';
+import '../register/contents.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/textfield.dart';

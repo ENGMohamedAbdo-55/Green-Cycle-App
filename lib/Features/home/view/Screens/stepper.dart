@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
-import 'package:green_cycle_app/Features/home/view/layouts/post_screen.dart';
-import 'package:green_cycle_app/core/Services/Navigation.dart';
+import 'Home_Screen.dart';
+import '../layouts/post_screen.dart';
+import '../../../../core/Services/Navigation.dart';
 
 class sas extends StatelessWidget {
   sas({super.key});

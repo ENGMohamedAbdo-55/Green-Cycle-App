@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/home/view/Screens/stepper.dart';
-import 'package:green_cycle_app/Features/home/view/layouts/Home_Layout.dart';
-import 'package:green_cycle_app/Features/home/view/layouts/user_account.dart';
-import 'package:green_cycle_app/core/Services/Navigation.dart';
-import 'package:green_cycle_app/core/Services/spacing.dart';
-import 'package:green_cycle_app/Features/home/view/components/home/image_picker.dart';
-import 'package:green_cycle_app/Features/home/view/components/home/topBar.dart';
+import '../Screens/stepper.dart';
+import 'Home_Layout.dart';
+import 'user_account.dart';
+import '../../../../core/Services/Navigation.dart';
+import '../../../../core/Services/spacing.dart';
+import '../components/home/image_picker.dart';
+import '../components/home/topBar.dart';
 
 import '../components/home/payment_type.dart';
 import '../../ViewModel/cubit/HomeScreenCubit.dart';

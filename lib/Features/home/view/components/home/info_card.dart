@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/core/colors.dart';
-import 'package:green_cycle_app/core/text_styles.dart';
+import '../../../../../core/colors.dart';
+import '../../../../../core/text_styles.dart';
 
 class Info_Card extends StatelessWidget {
   Info_Card({super.key, required this.name, required this.icon});

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:green_cycle_app/Features/auth/model/user_model.dart';
-import 'package:green_cycle_app/Features/chat/cubit/chat_cubit.dart';
-import 'package:green_cycle_app/Features/chat/model/message_model.dart';
+import '../../auth/model/user_model.dart';
+import '../cubit/chat_cubit.dart';
+import '../model/message_model.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/text_styles.dart';
