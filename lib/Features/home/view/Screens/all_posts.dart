@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:green_cycle_app/Features/home/view/Screens/details_screen.dart';
 
 import '../../../../core/Services/Navigation.dart';
@@ -11,7 +12,9 @@ import '../../ViewModel/cubit/HomeScreenState.dart';
 import '../components/home/home_gridview_bilder.dart';
 
 class All_Posts_Screen extends StatelessWidget {
-  All_Posts_Screen({super.key});
+  All_Posts_Screen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +60,7 @@ class All_Posts_Screen extends StatelessWidget {
                                 Navigation.goPush(
                                   context,
                                   Details_screen(
+                                  
                                     id: cubit.PostsFireBase[index].id!,
                                     cartModel: cubit.PostsFireBase[index],
                                   ),

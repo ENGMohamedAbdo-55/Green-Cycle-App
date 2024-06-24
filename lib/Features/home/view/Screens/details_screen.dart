@@ -1,15 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:green_cycle_app/Features/cart/view%20model/manager/cubit/cart_cubit.dart';
-
 import 'package:green_cycle_app/Features/home/Model/post_model.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
@@ -22,6 +16,7 @@ import '../../../../core/widgets.dart';
 class Details_screen extends StatelessWidget {
   String id;
   PostModelFireBase cartModel;
+  User? user = FirebaseAuth.instance.currentUser;
   Details_screen({
     Key? key,
     required this.id,
@@ -168,10 +163,7 @@ class Details_screen extends StatelessWidget {
                               "galleryUrl": cartModel.galleryUrl,
                               "time": cartModel.time,
                               "title": cartModel.title,
-                            
-                            }
-                            
-                            ).then((value) {
+                            }).then((value) {
                               Fluttertoast.showToast(
                                   msg: "this post is added to favorite",
                                   toastLength: Toast.LENGTH_LONG,
@@ -186,7 +178,19 @@ class Details_screen extends StatelessWidget {
                               color: MyColors.greenColor,
                               fontcolor: Colors.white,
                               text: 'Add To Cart'),
-                        )
+                        ),
+                     
+      //                   TextButton(
+      //                       onPressed: ()async {
+      //                            UserModel? currentUser =  await LoginCubit.get(context).getCurrentUser();
+      //                        navigateTo(
+      //   context,
+      //   ChatScreen(
+      //     userModel: currentUser!,
+      //   ),
+      // );
+      //                       },
+      //                       child: const Text("go to chat"))
                       ],
                     ),
                   )

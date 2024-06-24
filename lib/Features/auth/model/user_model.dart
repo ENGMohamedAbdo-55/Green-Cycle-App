@@ -14,6 +14,7 @@ class UserModel {
     required this.image,
 
   });
+  
 
    UserModel.fromJson(Map<String, dynamic> json) {
       uId = json['uId'];

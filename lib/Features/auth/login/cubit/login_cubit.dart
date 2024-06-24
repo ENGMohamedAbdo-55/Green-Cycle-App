@@ -38,8 +38,6 @@ class LoginCubit extends Cubit<LoginStates> {
       color: MyColors.greyColor,
     );
   }
-
-
   ///signout with Google
 Future<void> signOut(BuildContext context) async {
     try {

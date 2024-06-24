@@ -20,8 +20,7 @@ import 'package:green_cycle_app/Features/home/view/Screens/sidebar_menu.dart';
 import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import 'package:green_cycle_app/core/observer.dart';
 import 'firebase_options.dart';
-
-void main() async {
+                         void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -74,6 +73,10 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (BuildContext context) => HomeScreenCubit()..getAllPostsFromFireBase(),
             ),
+            BlocProvider(
+              create: (BuildContext context) => HomeScreenCubit()..getCartPosts(),
+            ),
+            
             BlocProvider(
               create: (BuildContext context) => ChatCubit()..getUsers(),
             ),

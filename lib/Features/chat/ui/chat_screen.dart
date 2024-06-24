@@ -16,6 +16,7 @@ class ChatScreen extends StatelessWidget {
 
   const ChatScreen({Key? key, required this.userModel}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     var cubit = ChatCubit.get(context);

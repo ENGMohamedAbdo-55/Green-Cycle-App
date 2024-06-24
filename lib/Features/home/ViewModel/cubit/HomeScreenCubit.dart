@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:green_cycle_app/Features/profile/view/screens/profile_screen.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../auth/model/user_model.dart';
 import '../../../cart/view/screens/cartScreen.dart';
 import '../../Model/post_model.dart';
 import '../../view/layouts/Home_Layout.dart';
@@ -20,6 +20,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   HomeScreenCubit() : super(homeScreenInitState());
   static HomeScreenCubit get(context) => BlocProvider.of(context);
   var AddPostKey = GlobalKey<FormState>();
+  UserModel? userModel;
 
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
@@ -59,32 +60,28 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     timeController.clear();
   }
 
+  List<PostModelFireBase> cartList = [];
 
+  Future<void> getCartPosts() async {
+    emit(CartLoading());
+    try {
+      var querySnapshot = await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection("Cart")
+          .get();
 
-List<PostModelFireBase> cartList = [];
+      cartList = querySnapshot.docs
+          .map((doc) =>
+              PostModelFireBase.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
 
-Future<void> getCartPosts() async {
-  emit(CartLoading());
-  try {
-    var querySnapshot = await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("Cart")
-        .get();
-
-    cartList = querySnapshot.docs.map((doc) =>
-        PostModelFireBase.fromJson(doc.data() as Map<String, dynamic>)).toList();
-
-    emit(CartLoaded());
-  } catch (error) {
-    print("Error fetching cart posts: $error");
-    emit(CartError());
+      emit(CartLoaded());
+    } catch (error) {
+      print("Error fetching cart posts: $error");
+      emit(CartError());
+    }
   }
-}
-
-
-
-
 
   File? cameraFile;
   String? cameraUrl;
@@ -175,7 +172,7 @@ Future<void> getCartPosts() async {
     const HomeLayoutScreen(),
     const Post_Screen(),
     const CartScreen(),
-     UserProfileScreen(),
+    UserProfileScreen(),
 
     // DoctorsScreen(),
     // Search(),
@@ -234,7 +231,6 @@ Future<void> getCartPosts() async {
     });
   }
 }
-
 
 class SliderModel {
   String? image;
