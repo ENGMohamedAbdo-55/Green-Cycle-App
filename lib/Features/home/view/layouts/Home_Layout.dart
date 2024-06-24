@@ -188,7 +188,7 @@ class HomeLayoutScreen extends StatelessWidget {
                                         )),
                               )
                             ],
-                          ),
+                          ), 
                         ),
                 ],
               ),

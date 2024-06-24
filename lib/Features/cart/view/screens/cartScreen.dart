@@ -52,7 +52,7 @@ class CartScreen extends StatelessWidget {
                             return  InkWell(
                              onTap: () {
                                               HomeScreenCubit.get(context).changeCurrentTask(Index);
-                                              Navigation.goPush(
+                                              Navigation.pushReplacement(
                                                 context,
                                                 Details_screen(
                                                   id: HomeScreenCubit.get(context).cartList[Index].id!,

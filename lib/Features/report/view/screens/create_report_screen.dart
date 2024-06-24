@@ -36,7 +36,25 @@ class CreateReportScreen extends StatelessWidget {
                   key: cubit.addReportKey,
                   child: Column(
                     children: [
-                      const imgBicker(),
+                      ImagePicker(),
+        //              Container(
+        // width: double.infinity,
+        // height: 180,
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(16.0),
+        //   color: MyColors.backGroundGrey,
+          
+        //                 ), child:Column(
+        //         mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           Image.asset(
+        //               "assets/images/report/photo_camera 1.png"),
+        //           Text(
+        //             "فتح كاميرا",
+        //             style: AppStyles.textStyle30,
+        //           ),
+        //         ],
+        //       ),  ), // Adjust
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: Row(
@@ -57,7 +75,7 @@ class CreateReportScreen extends StatelessWidget {
                         child: DefaultTextField(
                           controller: cubit.countryController,
                           keyboardType: TextInputType.text,
-                          //  افتكر ترجع لكنترولر في التكست فيلد
+                      
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "البلد لا يجب ان تكون فارغ";

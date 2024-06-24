@@ -10,6 +10,10 @@ import 'package:green_cycle_app/Features/chat/ui/chat_screen.dart';
 import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
 import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
 import 'package:green_cycle_app/Features/onBoarding/onBoarding_Screen.dart';
+import 'package:green_cycle_app/Features/profile/view%20model/cubit/profile_cubit.dart';
+import 'package:green_cycle_app/Features/report/view%20model/cubit/report_cubit.dart';
+import 'package:green_cycle_app/Features/report/view/screens/create_report_screen.dart';
+import 'package:green_cycle_app/Features/report/view/screens/reports_screen.dart';
 import 'package:green_cycle_app/Features/splash/splash_screen.dart';
 import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
 import 'package:green_cycle_app/Features/auth/login/cubit/login_cubit.dart';
@@ -20,7 +24,8 @@ import 'package:green_cycle_app/Features/home/view/Screens/sidebar_menu.dart';
 import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import 'package:green_cycle_app/core/observer.dart';
 import 'firebase_options.dart';
-                         void main() async {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -31,14 +36,15 @@ import 'firebase_options.dart';
   SecureStorage secureStorage = SecureStorage();
 
   // Check if the user has already seen the onboarding screen
-  String? hasSeenOnboarding = await secureStorage.getSecureData(SecureKeys.hasSeenOnboarding);
+  String? hasSeenOnboarding =
+      await secureStorage.getSecureData(SecureKeys.hasSeenOnboarding);
 
   Widget startWidget;
   if (hasSeenOnboarding == 'true') {
     // User has seen onboarding, check if user is logged in
     String? isLogin = await secureStorage.getSecureData(SecureKeys.userToken);
     if (isLogin != null) {
-      startWidget = Home_Screen();
+      startWidget = const Home_Screen();
     } else {
       startWidget = const LoginScreen();
     }
@@ -52,7 +58,7 @@ import 'firebase_options.dart';
 
 class MyApp extends StatelessWidget {
   final Widget startWidget;
-  const MyApp({Key? key, required this.startWidget});
+  const MyApp({super.key, required this.startWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +77,26 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => RegisterCubit(),
             ),
             BlocProvider(
-              create: (BuildContext context) => HomeScreenCubit()..getAllPostsFromFireBase(),
+              create: (BuildContext context) =>
+                  HomeScreenCubit()..getAllPostsFromFireBase(),
             ),
             BlocProvider(
-              create: (BuildContext context) => HomeScreenCubit()..getCartPosts(),
+              create: (BuildContext context) =>
+                  HomeScreenCubit()..getCartPosts(),
             ),
-            
             BlocProvider(
               create: (BuildContext context) => ChatCubit()..getUsers(),
             ),
+            BlocProvider(
+              create: (BuildContext context) => ReportCubit(),
+            ),
+            BlocProvider(
+              create: (BuildContext context) => UserProfileCubit(),
+            ),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: SplashScreen(startWidget: startWidget,),
+          child: const MaterialApp(
+            debugShowCheckedModeBanner: false, home: ReportsScreen(),
+            //SplashScreen(startWidget: startWidget,),
           ),
         );
       },

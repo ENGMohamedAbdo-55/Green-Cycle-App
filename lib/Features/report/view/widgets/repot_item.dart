@@ -27,7 +27,7 @@ class ReportItem extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 125,
+                  height: 125.h,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -35,8 +35,8 @@ class ReportItem extends StatelessWidget {
                         padding: EdgeInsets.only(left: 20),
                         child: Icon(Icons.arrow_back_ios),
                       ),
-                      const SizedBox(
-                        width: 20,
+                       SizedBox(
+                        width: 20.w,
                       ),
                       Row(
                         children: [
@@ -63,18 +63,28 @@ class ReportItem extends StatelessWidget {
                               ],
                             ),
                           ),
-                          const SizedBox(
-                            width: 10,
+                           SizedBox(
+                            width: 10.w,
                           ),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(
                                 12), // Adjust radius as needed
                             child:
                           
-                             Image.asset(
-                              "assets/images/cart/cartitemimg.png",
-                              fit: BoxFit.cover, // Adjust fit as needed
-                            ),
+                             //    if (posts?.cameraUrl != "none")
+                    Image.network(
+                      
+                      reports?.reportCameraUrl ??
+                        // reports?.galleryUrl ??
+                          "${Icon(
+                            Icons
+                                .signal_wifi_statusbar_connected_no_internet_4_outlined,
+                            size: 140.sp,
+                          )}",
+                      // 'assets/images/onBoarding_images/onBoard1.png',
+                      height: 120.h, width: 100.h,
+                      fit: BoxFit.fill,
+                    ),
                           ),
                         ],
                       )

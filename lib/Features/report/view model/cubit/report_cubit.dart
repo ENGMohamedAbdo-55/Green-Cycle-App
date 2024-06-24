@@ -64,6 +64,7 @@ class ReportCubit extends Cubit<ReportState> {
       description: descriptionController.text,
       city: cityController.text,
       address: addressController.text,
+      reportCameraUrl: reportCameraUrl
     );
     emit(AddReportLoadingState());
     FirebaseFirestore.instance
