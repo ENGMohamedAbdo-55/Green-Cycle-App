@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,15 +11,18 @@ import '../../../core/textfield.dart';
 import '../../home/view/components/buttons.dart';
 
 class ChatScreen extends StatelessWidget {
-  final UserModel userModel;
+  final UserModel receiverModel;
 
-  const ChatScreen({Key? key, required this.userModel}) : super(key: key);
+  const ChatScreen({super.key, required this.receiverModel});
 
 
   @override
   Widget build(BuildContext context) {
+
     var cubit = ChatCubit.get(context);
+    cubit.init();
     final TextEditingController messageController = TextEditingController();
+    cubit.addUser(receiverModel);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.greenColor,
@@ -36,11 +38,11 @@ class ChatScreen extends StatelessWidget {
             SizedBox(width: 8.w),
             CircleAvatar(
               radius: 20.r,
-              backgroundImage: NetworkImage('${userModel.image}'),
+              backgroundImage: NetworkImage(receiverModel.image),
             ),
             SizedBox(width: 20.w), // Add some space between the widgets
             Text(
-              '${userModel.name}',
+              receiverModel.name,
               style: AppStyles.whiteTextStyle30,
             ),
           ],
@@ -48,14 +50,13 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
-          cubit.userModel = userModel; // Set the userModel in ChatCubit
-          cubit.getMessages(receiverID: userModel.uId ?? '');
+          //cubit.userModel = userModel; // Set the userModel in ChatCubit
+          cubit.getMessages(receiverID: receiverModel.uId);
           return BlocConsumer<ChatCubit, ChatStates>(
             listener: (context, state) {
               if (state is SendMessageSuccessState) {
                 messageController.clear();
               } else if (state is SendMessageErrorState) {
-                print('Error State');
               }
             },
             builder: (context, state) {
@@ -70,10 +71,16 @@ class ChatScreen extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           var message = cubit.messages[index];
-                          if (message.senderID == cubit.userModel!.uId) {
+                          //print('Message at index $index: SenderID = ${message.senderID}, ReceiverID = ${message.receiverID}, CurrentUserID = ${cubit.userModel!.uId}');
+
+                          if (message.senderID == cubit.senderId) {
+
                             return buildMyMessage(context, message);
+
                           } else {
+
                             return buildMessage(context, message);
+
                           }
                         },
                         separatorBuilder: (context, index) =>
@@ -96,7 +103,7 @@ class ChatScreen extends StatelessWidget {
                             shape: const CircleBorder(),
                             onPressed: () {
                               cubit.sendMessage(
-                                receiverID: userModel.uId ?? '',
+                                receiverID: receiverModel.uId,
                                 dateTime: DateTime.now().toString(),
                                 text: messageController.text,
                               );

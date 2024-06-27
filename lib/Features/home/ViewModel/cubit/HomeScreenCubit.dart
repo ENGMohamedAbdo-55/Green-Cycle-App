@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../profile/view/screens/profile_screen.dart';
+import 'package:green_cycle_app/Features/chat/ui/chat_home.dart';
+import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../auth/model/user_model.dart';
+import '../../../../core/Services/local/secure_keys.dart';
 import '../../../cart/view/screens/cartScreen.dart';
+import '../../../profile/view/screens/profile_screen.dart';
 import '../../Model/post_model.dart';
 import '../../view/layouts/Home_Layout.dart';
 import '../../view/layouts/post_screen.dart';
@@ -20,7 +22,6 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   HomeScreenCubit() : super(homeScreenInitState());
   static HomeScreenCubit get(context) => BlocProvider.of(context);
   var AddPostKey = GlobalKey<FormState>();
-  UserModel? userModel;
 
   var titleController = TextEditingController();
   var descriptionController = TextEditingController();
@@ -52,7 +53,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     groupValue = newValue;
     emit(ChangeGroupValue());
   }
-
+  
   void clearControllers() {
     titleController.clear();
     descriptionController.clear();
@@ -61,7 +62,6 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   }
 
   List<PostModelFireBase> cartList = [];
-
   Future<void> getCartPosts() async {
     emit(CartLoading());
     try {
@@ -70,12 +70,10 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("Cart")
           .get();
-
       cartList = querySnapshot.docs
           .map((doc) =>
-              PostModelFireBase.fromJson(doc.data() as Map<String, dynamic>))
+          PostModelFireBase.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
-
       emit(CartLoaded());
     } catch (error) {
       print("Error fetching cart posts: $error");
@@ -169,7 +167,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
 
   List<Widget> layouts = [
     const HomeLayoutScreen(),
-    const HomeLayoutScreen(),
+    const ChatHome(),
     const Post_Screen(),
     const CartScreen(),
     UserProfileScreen(),
@@ -180,14 +178,26 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     // UserProfileScreen()
   ];
   ///////////////add//////////////////
-  void addPostToFireBase() {
+
+   addPostToFireBase() async{
+    SecureStorage secureStorage=SecureStorage();
+    String? id=await secureStorage.getSecureData(SecureKeys.userId);
+    String? name=await secureStorage.getSecureData(SecureKeys.name);
+    String? image=await secureStorage.getSecureData(SecureKeys.image);
     PostModelFireBase post = PostModelFireBase(
         title: titleController.text,
         description: descriptionController.text,
         date: dateController.text,
         time: timeController.text,
         cameraUrl: cameraUrl,
-        galleryUrl: galleryUrl);
+        galleryUrl: galleryUrl,
+        uId: id ??'',
+        name: name ??'',
+        image:image ??'' ,
+        phone:'' ,
+        email: '',
+
+    );
     emit(AddPostLoadingState());
 
     FirebaseFirestore.instance
@@ -215,7 +225,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
         .snapshots()
         .listen((value) {
       PostsFireBase = [];
-      for (var element in value.docs) {
+      value.docs.forEach((element) {
         PostModelFireBase currentPost =
             PostModelFireBase.fromJson(element.data());
         currentPost.id = element.id;
@@ -223,7 +233,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
           currentPost,
         );
         // print(element.data());
-      }
+      });
       emit(GetPostSuccess());
     }).onError((error) {
       print('Get All Posts FireBase Error $error');

@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
                   HomeScreenCubit()..getCartPosts(),
             ),
             BlocProvider(
-              create: (BuildContext context) => ChatCubit()..getUsers(),
+              create: (BuildContext context) => ChatCubit(),
             ),
             BlocProvider(
               create: (BuildContext context) => ReportCubit(),
@@ -95,7 +95,8 @@ class MyApp extends StatelessWidget {
             ),
           ],
           child:  MaterialApp(
-            debugShowCheckedModeBanner: false, home:SplashScreen(startWidget: startWidget,),
+            debugShowCheckedModeBanner: false,
+            home: SplashScreen(startWidget: startWidget,),
             
           ),
         );

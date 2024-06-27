@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import '../../../../core/Services/local/secure_keys.dart';
+import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
+import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
+import 'package:green_cycle_app/core/navigation_const.dart';
 import '../../../../core/Services/local/secure_storage.dart';
 import '../../../../core/colors.dart';
 import '../../model/user_model.dart';
@@ -38,24 +40,10 @@ class LoginCubit extends Cubit<LoginStates> {
       color: MyColors.greyColor,
     );
   }
-  ///signout with Google
-Future<void> signOut(BuildContext context) async {
-    try {
-      await auth.signOut();
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
-    } catch (e) {
-      print('Error signing out: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error signing out. Please try again.')),
-      );
-    }
-  }
 
   ///signIn with Google
 
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle(BuildContext context) async {
     emit(GoogleSignInLoadingState());
     try {
       final GoogleSignInAccount? googleSignInAccount =
@@ -72,6 +60,7 @@ Future<void> signOut(BuildContext context) async {
         final User? user = authResult.user;
 
         emit(GoogleSignInSuccessState(user));
+        navigateAndFinish(context, Home_Screen());
       } else {
         emit(GoogleSignInErrorState("Google sign-in canceled"));
       }
@@ -100,8 +89,15 @@ Future<void> signOut(BuildContext context) async {
         UserModel userModel = await fetchUserData(user.uid);
         currentUser = userModel;
 
+
         // Save user token to secure storage
-        await saveUserToken(user.uid);// Save The User
+        await saveUserToken(user.uid);
+        await saveUserUid(userModel.uId);
+        await saveUserName(userModel.name);
+        await saveUserImage(userModel.image);
+
+
+
       } else if (user != null && !user.emailVerified) {
         // Email not verified
         auth.signOut(); // Sign out the user
@@ -126,8 +122,22 @@ Future<void> signOut(BuildContext context) async {
     }
   }
 
+  //signout with Google
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await auth.signOut();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+    } catch (e) {
+      print('Error signing out: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error signing out. Please try again.')),
+      );
+    }
+  }
 
-  ///signIn with Facebook
+  //signIn with Facebook
 
   Future<UserCredential> signInWithFacebook() async {
     // Trigger the sign-in flow
@@ -140,7 +150,7 @@ Future<void> signOut(BuildContext context) async {
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
-  ///Reset Password
+  //Reset Password
 
   void resetPassword({required String email}) async {
     emit(PasswordResetLoadingState());
@@ -158,6 +168,21 @@ Future<void> signOut(BuildContext context) async {
   }
   Future<void> saveUserToken (String token) async{
     await secureStorage.setSecureData(SecureKeys.userToken, token);
+    print('User Id Is : ${token.toString()} ');
   }
+
+  Future<void> saveUserUid (String? uid) async{
+    await secureStorage.setSecureData(SecureKeys.userId, uid!);
+    print('User Id Is : ${uid.toString()} ');
+  }
+  Future<void> saveUserName (String? name) async{
+    await secureStorage.setSecureData(SecureKeys.name,name!);
+  }
+  Future<void> saveUserImage (String? image) async{
+    await secureStorage.setSecureData(SecureKeys.image, image!);
+  }
+
+
+
 
 }

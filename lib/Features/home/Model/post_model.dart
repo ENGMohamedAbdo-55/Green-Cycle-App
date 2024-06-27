@@ -1,9 +1,9 @@
-import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class PostModelFireBase {
+import '../../auth/model/user_model.dart';
+
+
+class PostModelFireBase extends UserModel{
   String? id;
   String? title;
   String? description;
@@ -12,6 +12,8 @@ class PostModelFireBase {
   String? cameraUrl;
   String? galleryUrl;
 
+
+
   PostModelFireBase({
     this.id,
     this.title,
@@ -19,16 +21,37 @@ class PostModelFireBase {
     this.date,
     this.time, 
     this.cameraUrl ,
-    this.galleryUrl ,
+    this.galleryUrl,
+    required super.uId,
+    required super.name,
+    required super.phone,
+    required super.email,
+    required super.image ,
+
+
+
   });
 
-  PostModelFireBase.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    description = json['description'];
-    date = json['date'];
-    time = json['time'];
-    cameraUrl = json['cameraUrl'];
-    galleryUrl = json['galleryUrl'];
+  factory PostModelFireBase.fromJson(Map<String, dynamic> json) {
+    return PostModelFireBase(
+      cameraUrl:json['cameraUrl'] ,
+      date:json['date'],
+      description:json['description'] ,
+      galleryUrl:json['galleryUrl'] ,
+      time:json['time'],
+      title:json['title'],
+
+      //UserModel
+
+      uId: json['uId'],
+      name: json['name'],
+      phone: json['phone'],
+      email: json['email'],
+      image: json['image'],
+
+
+    );
+
   }
 
   get isEmpty => null;
@@ -41,6 +64,14 @@ class PostModelFireBase {
       'time': time,
       'cameraUrl': cameraUrl,
       'galleryUrl': galleryUrl,
+
+
+      //UserModel
+      'uId': uId,
+      'name': name,
+      'phone': phone,
+      'email': email,
+      'image' :image,
     };
   }
 }

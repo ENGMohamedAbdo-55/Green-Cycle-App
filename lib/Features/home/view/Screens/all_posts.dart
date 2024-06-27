@@ -42,7 +42,7 @@ class All_Posts_Screen extends StatelessWidget {
                   right: 20.w,
                 ),
                 child: GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   mainAxisSpacing: 10.w,
@@ -52,11 +52,12 @@ class All_Posts_Screen extends StatelessWidget {
                       cubit.PostsFireBase.length,
                       (index) => Material(
                             borderRadius: BorderRadius.circular(15.r),
-                            color: Color.fromARGB(255, 234, 239, 241),
+                            color: const Color.fromARGB(255, 234, 239, 241),
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 cubit.changeCurrentTask(index);
+
                                 Navigation.goPush(
                                   context,
                                   Details_screen(

@@ -1,27 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import '../../Model/post_model.dart';
-import '../../ViewModel/cubit/HomeScreenCubit.dart';
-import '../../ViewModel/cubit/HomeScreenState.dart';
-import '../../../../core/Services/spacing.dart';
-
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
+import 'package:green_cycle_app/core/Services/spacing.dart';
 import '../../../../core/colors.dart';
+import '../../../../core/navigation_const.dart';
 import '../../../../core/text_styles.dart';
 import '../../../../core/widgets.dart';
+import 'package:green_cycle_app/Features/auth/model/user_model.dart';
+
+import '../../../chat/ui/chat_screen.dart';
+import '../../Model/post_model.dart';
 
 class Details_screen extends StatelessWidget {
+
   String id;
   PostModelFireBase cartModel;
   User? user = FirebaseAuth.instance.currentUser;
-  Details_screen({
-    Key? key,
-    required this.id,
-    required this.cartModel,
-  }) : super(key: key);
+
+   Details_screen({super.key,required this.id,required this.cartModel});
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class Details_screen extends StatelessWidget {
                   ),
                   verticalSpace(10),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: EdgeInsets.all(20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -86,13 +85,13 @@ class Details_screen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const Spacer(),
+                            Spacer(),
                             Expanded(
                               flex: 15,
                               child: Text(
                                 textAlign: TextAlign.end,
                                 maxLines: 8,
-                                cubit.titleController.text ?? '{id.title}',
+                                cubit.titleController.text,
                                 style: AppStyles.textStyle20bbold,
                               ),
                             ),
@@ -109,7 +108,7 @@ class Details_screen extends StatelessWidget {
                           thickness: 0.7,
                           color: Colors.black,
                         ),
-                        const Row(children: [
+                        Row(children: [
                           //hometext2(text: "${id.category}"),
                           Spacer(),
                         ]),
@@ -123,7 +122,7 @@ class Details_screen extends StatelessWidget {
                         Text(
                           textAlign: TextAlign.end,
                           maxLines: 2,
-                          cubit.descriptionController.text ?? '......',
+                          cubit.descriptionController.text,
                           style: AppStyles.textStyle14b,
                         ),
                         verticalSpace(10),
@@ -151,36 +150,26 @@ class Details_screen extends StatelessWidget {
                         ),
                         verticalSpace(25),
                         InkWell(
-                          onTap: () {
-                            FirebaseFirestore.instance
-                                .collection('Users')
-                                .doc(FirebaseAuth.instance.currentUser!.uid)
-                                .collection('Cart')
-                                .add({
-                              "cameraUrl": cartModel.cameraUrl,
-                              "date": cartModel.date,
-                              "description": cartModel.description,
-                              "galleryUrl": cartModel.galleryUrl,
-                              "time": cartModel.time,
-                              "title": cartModel.title,
-                            }).then((value) {
-                              Fluttertoast.showToast(
-                                  msg: "this post is added to favorite",
-                                  toastLength: Toast.LENGTH_LONG,
-                                  gravity: ToastGravity.BOTTOM,
-                                  timeInSecForIosWeb: 1,
-                                  backgroundColor: Colors.green,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
-                            });
-                          },
+                          //onTap: () => cubit.addtocart(id: id.id),
                           child: custombutton(
                               color: MyColors.greenColor,
                               fontcolor: Colors.white,
                               text: 'Add To Cart'),
                         ),
-                     
+                        SizedBox(height: 20.h,),
+                        IconButton(onPressed: (){
+                          navigateTo(context,
+                              ChatScreen(receiverModel: UserModel(
+                                  uId: cubit.PostsFireBase[cubit.currentTaskIndex].uId,
+                                image:cubit.PostsFireBase[cubit.currentTaskIndex].image,
+                                email: cubit.PostsFireBase[cubit.currentTaskIndex].email,
+                                name: cubit.PostsFireBase[cubit.currentTaskIndex].name,
+                                phone: cubit.PostsFireBase[cubit.currentTaskIndex].phone,
+                              ))
+                          );
 
+
+                        }, icon: const Icon(Icons.chat)),
                       ],
                     ),
                   )

@@ -18,4 +18,4 @@ class SendMessageSuccessState extends ChatStates{}
 class SendMessageErrorState extends ChatStates{}
 class GetMessageSuccessState extends ChatStates{}
 
-//class GetMessageErrorState extends ChatStates{}
+class ChatUsersUpdatedState extends ChatStates {}

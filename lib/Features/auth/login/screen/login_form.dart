@@ -53,7 +53,7 @@ class GoogleAndFace extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: (){
-            cubit.signInWithGoogle();
+            cubit.signInWithGoogle(context);
           },
           child: Container(
             alignment: Alignment.centerRight,

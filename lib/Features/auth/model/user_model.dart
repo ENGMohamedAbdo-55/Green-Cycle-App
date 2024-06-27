@@ -1,9 +1,9 @@
 class UserModel {
-   String? uId;
-   String? name;
-   String? phone;
-   String? email;
-   String? image;
+   final String uId;
+   final String name;
+   final String phone;
+   final String email;
+   final String image;
 
 
   UserModel({
@@ -16,12 +16,15 @@ class UserModel {
   });
   
 
-   UserModel.fromJson(Map<String, dynamic> json) {
-      uId = json['uId'];
-      name = json['name'];
-      phone= json['phone'];
-      email= json['email'];
-      image= json['image'];
+   factory UserModel.fromJson(Map<String, dynamic> json) {
+     return UserModel(
+         uId : json['uId'],
+         name : json['name'],
+         phone: json['phone'],
+        email: json['email'],
+        image: json['image'],
+     );
+
   }
 
   Map<String, dynamic> toMap() {
