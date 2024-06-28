@@ -30,16 +30,14 @@ class TopBar extends StatelessWidget {
             horizontalSpace(50),
             Row(
               children: [
-                homeAppBar(
-                    color: Colors.black, icon: Icon(Icons.notifications)),
+                homeAppBar(color: Colors.black, icon: const Icon(Icons.add_a_photo)),
                 Spacer(),
                 Text(
                   'كاربج',
                   style: AppStyles.textStyle32,
                 ),
                 Spacer(),
-                homeAppBar(
-                    color: MyColors.blackColor, icon: Icon(Icons.filter_3))
+                homeAppBar(color: MyColors.blackColor, icon: const Icon(Icons.report))
               ],
             ),
             verticalSpace(16),
@@ -47,29 +45,28 @@ class TopBar extends StatelessWidget {
               children: [
                 homeAppBar(color: Colors.black, icon: Icon(Icons.tune)),
                 horizontalSpace(16),
-                InkWell(
-                  onTap: () => Navigation.goPush(context, Search_Screen()),
-                  child: 
-                  
-                  Container(
-                    width: 250.w,
-                    height: 40.h,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Color.fromARGB(255, 224, 219, 219)),
-                    child: ListTile(
-                      trailing: Icon(
-                        Icons.search,
-                        size: 35.sp,
-                      ),
-                      title: Text(
-                        'ما الذي تبحث عنه ؟',
-                        textAlign: TextAlign.right,
-                        style: AppStyles.textStyle14b,
+                Expanded(
+                  child: InkWell(
+                    onTap: () => Navigation.goPush(context, Search_Screen()),
+                    child: Container(
+                      height: 40.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: Color.fromARGB(255, 224, 219, 219)),
+                      child: ListTile(
+                        trailing: Icon(
+                          Icons.search,
+                          size: 35.sp,
+                        ),
+                        title: Text(
+                          'ما الذي تبحث عنه ؟',
+                          textAlign: TextAlign.right,
+                          style: AppStyles.textStyle14b,
+                        ),
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],
