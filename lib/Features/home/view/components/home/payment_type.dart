@@ -24,23 +24,25 @@ class Payment_type extends StatelessWidget {
               width: 160.w,
               height: 70.h,
               decoration: BoxDecoration(
-                  color: MyColors.greenColor,
+                  color: const Color.fromARGB(255, 82, 80, 80),
                   borderRadius: BorderRadius.circular(20.r)),
               child: RadioMenuButton(
                 trailingIcon: Icon(
                   Icons.change_circle_outlined,
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 138, 129, 129),
                   size: 20.sp,
                 ),
                 value: 0,
                 groupValue: cubit.groupValue,
                 onChanged: (value) {
-                  cubit.changeGroupValue(newValue: value!);
+                  cubit.changeGroupValue();
                 },
                 child: Text(
                   textAlign: TextAlign.end,
                   'تحويل بنكي',
-                  style: AppStyles.textStyle16w,
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 138, 129, 129),
+                      fontSize: 16.sp),
                 ),
               ),
             ),
@@ -66,7 +68,7 @@ class Payment_type extends StatelessWidget {
                   style: AppStyles.textStyle16w,
                 ),
                 onChanged: (value) {
-                  cubit.changeGroupValue(newValue: value!);
+                  cubit.changeGroupValue();
                 },
               ),
             ),

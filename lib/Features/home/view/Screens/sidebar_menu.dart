@@ -2,66 +2,60 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../ViewModel/cubit/HomeScreenCubit.dart';
-import '../../ViewModel/cubit/HomeScreenState.dart';
-import '../../../../core/Services/spacing.dart';
-import '../../../../core/colors.dart';
+import 'package:green_cycle_app/Features/report/view/screens/reports_screen.dart';
+import 'package:green_cycle_app/core/Services/Navigation.dart';
+import 'package:green_cycle_app/core/Services/spacing.dart';
 
-import '../components/home/info_card.dart';
+import '../../../../core/navigation_const.dart';
+import '../../../../core/text_styles.dart';
+import '../../../auth/login/cubit/login_cubit.dart';
+import '../../../report/view/screens/create_report_screen.dart';
+import 'post_Location.dart';
 
-class Side_Bar_Screen extends StatelessWidget {
-  const Side_Bar_Screen({super.key});
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeScreenCubit, HomeScreenState>(
+    return BlocBuilder<LoginCubit, LoginStates>(
       builder: (context, state) {
-        return Scaffold(
-          body: Container(
-            width: 250.w,
-            height: double.infinity,
-            color: MyColors.greenColor,
-            child: SafeArea(
-              child: Column(
-                children: [
-                  verticalSpace(30),
-                  ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.green,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                    ),
-                    title: Text(
-                      'mohamed',
-                      style: TextStyle(fontSize: 17.sp, color: Colors.white),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                    endIndent: 11.w,
-                    indent: 11.w,
-                  ),
-                  verticalSpace(30),
-                  Info_Card(icon: Icon(Icons.person), name: 'الملف الشخصي'),
-                  Divider(
-                    thickness: 1,
-                    endIndent: 11.w,
-                    indent: 11.w,
-                  ),
-                  Info_Card(icon: Icon(Icons.person), name: 'الملف الشخصي'),
-                  Divider(
-                    thickness: 1,
-                    endIndent: 11.w,
-                    indent: 11.w,
-                  ),
-                  Info_Card(icon: Icon(Icons.person), name: 'الملف الشخصي'),
-                ],
+        var cubit = LoginCubit.get(context);
+        return Drawer(child: Padding(
+          padding:  EdgeInsets.only(left: 15.0.w,right: 15.w,top: 40.h),
+          child: Center(
+            child: ListView(children: [
+
+              InkWell
+                (
+                // onTap:             () =>             Navigation.goPush(context,  CreateReportScreen())
+
+                child: Row(
+                  children: [
+                    Icon(Icons.arrow_back_ios),Spacer(),
+                    Text('عرض التقارير',style: AppStyles.textStyle16b,),
+
+                  ],
+                ),
               ),
-            ),
+              verticalSpace(15),
+              Divider(),
+              verticalSpace(15),
+              InkWell(onTap: () =>                 LoginCubit.get(context).signOut(context)
+                ,
+                child: Row(
+                  children: [
+                    Icon(Icons.arrow_back_ios),Spacer(),
+                    Text('تسجيل الخروج',style: AppStyles.textStyle16b,),
+
+                  ],
+                ),
+              ),verticalSpace(15),
+              Divider()
+
+            ],),
           ),
-        );
+        ),
+            );
       },
     );
   }

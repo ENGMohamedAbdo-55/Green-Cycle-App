@@ -157,13 +157,14 @@ class PostTxtField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final TextInputType keyboardType;
   final ValueChanged<String>? onChanged;
-  final onTap;
+  final VoidCallback?onTap;
   final String? hintText;
   final String? labelText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final double? height;
   final int? lines;
+
   const PostTxtField(
       {this.hintText,
       this.height,

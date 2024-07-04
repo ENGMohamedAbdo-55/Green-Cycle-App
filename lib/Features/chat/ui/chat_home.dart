@@ -99,7 +99,7 @@ class ChatHome extends StatelessWidget {
               ),
               CircleAvatar(
                 radius: 27.r,
-                backgroundImage: NetworkImage(model.image),
+                backgroundImage: NetworkImage(model.image??''),
               ),
             ],
           ),

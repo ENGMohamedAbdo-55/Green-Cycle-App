@@ -41,13 +41,13 @@ class ReportsScreen extends StatelessWidget {
                         .firebaseReports.length, // Number of items in the list
                     itemBuilder: (context, index) {
                       return GestureDetector(onTap: () {
-                                          
+
                                               Navigation.goPush(
                                                 context,
                                                 ReportDetailsScreen(id: ReportCubit.get(context).firebaseReports[index].id!)
                                               );
                                             },
-                      
+
                       child: ReportItem(reports: cubit.firebaseReports[index]));
                     },
                   ),

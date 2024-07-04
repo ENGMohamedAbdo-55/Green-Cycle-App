@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,6 +17,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../core/text_styles.dart';
 import '../../../../core/widgets.dart';
 import '../Screens/all_posts.dart';
+import '../Screens/sidebar_menu.dart';
 
 class HomeLayoutScreen extends StatelessWidget {
   const HomeLayoutScreen({super.key});
@@ -28,6 +30,8 @@ class HomeLayoutScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = HomeScreenCubit.get(context);
           return Scaffold(
+            // key: ,
+            endDrawer: MyDrawer(),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -89,31 +93,10 @@ class HomeLayoutScreen extends StatelessWidget {
                           ),
                         )
                       : Padding(
-                          padding: EdgeInsets.only(left: 20..w, right: 20.w),
+                          padding: EdgeInsets.only(left: 20.w, right: 20.w),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              // Text(
-                              //   'الفئات',
-                              //   textAlign: TextAlign.right,
-                              //   style: AppStyles.textStyle24,
-                              // ),
-                              // verticalSpace(10),
-                              // SizedBox(
-                              //   width: 350,
-                              //   height: 40.h,
-                              //   child: ListView.separated(
-                              //       physics: NeverScrollableScrollPhysics(),
-                              //       shrinkWrap: true,
-                              //       scrollDirection: Axis.horizontal,
-                              //       itemBuilder: (context, index) => InkWell(
-                              //           onTap: () {},
-                              //           child: categoryCard(
-                              //               text1: " ${cubit.cato}")),
-                              //       separatorBuilder: (context, index) =>
-                              //           horizontalSpace(5),
-                              //       itemCount: cubit.cato.length),
-                              // ),
                               verticalSpace(10),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -136,22 +119,6 @@ class HomeLayoutScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              // GridView.builder(
-                              //   physics: BouncingScrollPhysics(),
-                              //   padding: EdgeInsets.only(left: 10, bottom: 20),
-                              //   gridDelegate:
-                              //       SliverGridDelegateWithFixedCrossAxisCount(
-                              //           crossAxisCount: 2),
-                              //   shrinkWrap: true,
-                              //   itemBuilder: (context, index) => InkWell(
-                              //       onTap: () {
-                              //         Navigation.goPush(
-                              //             context, Details_screen());
-                              //       },
-                              //       child: Home_Builder(
-                              //           posts: cubit.PostsFireBase[index])),
-                              //   itemCount: cubit.PostsFireBase.length,
-                              // ),
                               GridView.count(
                                 physics: NeverScrollableScrollPhysics(),
                                 crossAxisCount: 2,
@@ -176,7 +143,8 @@ class HomeLayoutScreen extends StatelessWidget {
                                                 Details_screen(
                                                   id: cubit
                                                       .PostsFireBase[index].id!,
-                                                      cartModel: cubit.PostsFireBase[index],
+                                                  cartModel: cubit
+                                                      .PostsFireBase[index],
                                                 ),
                                               );
                                             },

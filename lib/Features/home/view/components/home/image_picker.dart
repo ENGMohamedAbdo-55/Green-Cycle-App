@@ -15,6 +15,7 @@ class Image_picker extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScreenCubit, HomeScreenState>(
       builder: (context, state) {
+
         var cubit = HomeScreenCubit.get(context);
 
         return Column(
@@ -28,7 +29,7 @@ class Image_picker extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.photo_size_select_actual_rounded,
-                    size: 40.sp,
+                    size: 35.sp,
                     color: MyColors.greenColor,
                   ),
                 ),
@@ -43,7 +44,7 @@ class Image_picker extends StatelessWidget {
                   },
                   icon: Icon(
                     Icons.camera_alt,
-                    size: 40.sp,
+                    size: 35.sp,
                     color: MyColors.greenColor,
                   ),
                 ),
@@ -74,7 +75,27 @@ class Image_picker extends StatelessWidget {
                           cubit.cameraUrl!,
                           width: 160.w,
                           height: 160.h,
-                        )
+                        ),
+                // if (cubit.cameraUrl == null)
+                //   state is TakePhotoLoading
+                //       ? Container(
+                //           width: 1,
+                //           height: 1,
+                //         )
+                //       : Container(
+                //           width: 1,
+                //           height: 1,
+                //         ),
+                // if (cubit.cameraUrl == null)
+                //   state is PickPhotoLoading
+                //       ? Container(
+                //           width: 1,
+                //           height: 1,
+                //         )
+                //       : Container(
+                //           width: 1,
+                //           height: 1,
+                //         )
               ],
             ),
           ],

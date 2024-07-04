@@ -70,17 +70,15 @@ abstract class AppStyles {
     color: MyColors.whiteColor,
   );
   static TextStyle textStyle20b = TextStyle(
-    fontFamily: 'Cairo',
-    fontSize: 20.sp,
-    fontWeight: FontWeight.normal,
-    color: Colors.black
-  );
+      fontFamily: 'Cairo',
+      fontSize: 20.sp,
+      fontWeight: FontWeight.normal,
+      color: Colors.black);
   static TextStyle textStyle20bbold = TextStyle(
-    fontFamily: 'Cairo',
-    fontSize: 20.sp,
-    fontWeight: FontWeight.bold,
-    color: Colors.black
-  );
+      fontFamily: 'Cairo',
+      fontSize: 20.sp,
+      fontWeight: FontWeight.bold,
+      color: Colors.black);
 
   static TextStyle textStyle30 = TextStyle(
     fontSize: 30.sp,
@@ -112,12 +110,12 @@ abstract class AppStyles {
       fontWeight: FontWeight.w500,
       color: MyColors.blackColor);
 
-  
   static TextStyle textStyle16b = TextStyle(
       fontFamily: 'Cairo',
       fontSize: 16.sp,
       fontWeight: FontWeight.bold,
       color: Colors.black);
+ 
   static TextStyle textStyle16w = TextStyle(
       fontFamily: 'Cairo',
       fontSize: 16.sp,
@@ -128,7 +126,7 @@ abstract class AppStyles {
       fontSize: 24.sp,
       fontWeight: FontWeight.w500,
       color: Colors.black);
-  
+
   static TextStyle textstyle25w = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 25.sp,

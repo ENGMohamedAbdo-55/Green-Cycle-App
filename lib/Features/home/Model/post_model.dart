@@ -10,8 +10,7 @@ class PostModelFireBase extends UserModel{
   String? date;
   String? time;
   String? cameraUrl;
-  String? galleryUrl;
-
+String?galleryUrl;
 
 
   PostModelFireBase({
@@ -35,9 +34,9 @@ class PostModelFireBase extends UserModel{
   factory PostModelFireBase.fromJson(Map<String, dynamic> json) {
     return PostModelFireBase(
       cameraUrl:json['cameraUrl'] ,
+      galleryUrl:json['galleryUrl'] ,
       date:json['date'],
       description:json['description'] ,
-      galleryUrl:json['galleryUrl'] ,
       time:json['time'],
       title:json['title'],
 

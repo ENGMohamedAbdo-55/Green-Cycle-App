@@ -63,7 +63,7 @@ class CartScreen extends StatelessWidget {
                                             },
                               child: CartItem(
                                 title: HomeScreenCubit.get(context).cartList[Index].title! ,
-                                img:HomeScreenCubit.get(context).cartList[Index].galleryUrl! ,
+                                img:HomeScreenCubit.get(context).cartList[Index].cameraUrl! ,
                               ),
                             );
                           }),

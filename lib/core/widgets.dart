@@ -5,13 +5,18 @@ import 'text_styles.dart';
 
 import 'colors.dart';
 
-homeAppBar({Icon? icon, Color? color, double? width}) => Container(
+homeAppBar(
+        {Icon? icon,
+        final VoidCallback? onPressed,
+        Color? color,
+        double? width}) =>
+    Container(
       width: width?.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Color.fromARGB(255, 224, 219, 219)),
       child: IconButton(
-        onPressed: () {},
+        onPressed: onPressed,
         icon: icon ??
             Icon(
               Icons.notifications,
@@ -131,7 +136,7 @@ Widget custombutton({
 }) =>
     Container(
       width: w ?? 350.w,
-      height: h ?? 50.h,
+      height: h ?? 40.h,
       decoration: BoxDecoration(
           color: color, borderRadius: BorderRadius.circular(50.r)),
       child: Center(

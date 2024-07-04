@@ -1,3 +1,5 @@
+import '../../Model/placeSuggestion.dart';
+
 abstract class HomeScreenState {}
 
 class homeScreenInitState extends HomeScreenState {}
@@ -27,6 +29,7 @@ class PickPhotoError extends HomeScreenState {}
 class TakePhotoLoading extends HomeScreenState {}
 
 class TakePhotoSuccess extends HomeScreenState {}
+class GetCurrentLocationSussesState extends HomeScreenState {}
 
 class TakePhotoError extends HomeScreenState {}
 
@@ -41,3 +44,24 @@ class CartError extends HomeScreenState {
  
 }
 
+// class PlacesLoaded extends HomeScreenState {
+//   final List<PlaceSuggestion> places;
+
+//   PlacesLoaded(this.places);
+
+// }
+
+// class PlaceLocationLoaded extends HomeScreenState {
+//   final Place place;
+
+//   PlaceLocationLoaded(this.place);
+
+// }
+
+
+// class DirectionsLoaded extends HomeScreenState {
+//   final PlaceDirections placeDirections;
+
+//   DirectionsLoaded(this.placeDirections);
+
+// }

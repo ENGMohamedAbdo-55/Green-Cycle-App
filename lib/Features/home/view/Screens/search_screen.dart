@@ -20,6 +20,7 @@ class _Search_ScreenState extends State<Search_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: MyColors.greenColor,
         title: SizedBox(
           height: 40,
@@ -34,12 +35,12 @@ class _Search_ScreenState extends State<Search_Screen> {
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none),
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 filled: true,
                 fillColor: MyColors.whiteColor,
                 hintText: 'Search',
-                hintStyle: TextStyle(color: Colors.grey),
-                prefixIcon: Icon(
+                hintStyle: const TextStyle(color: Colors.grey),
+                prefixIcon: const Icon(
                   Icons.search,
                   color: Colors.grey,
                 )),
@@ -53,11 +54,11 @@ class _Search_ScreenState extends State<Search_Screen> {
             .startAt([searchName]).endAt([searchName + "\uf8ff"]).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Something went wrong'));
+            return const Center(child: Text('Something went wrong'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator.adaptive(),
             );
           }
@@ -85,36 +86,3 @@ class _Search_ScreenState extends State<Search_Screen> {
     );
   }
 }
-// class UserInformation extends StatefulWidget {
-//   @override
-//     _UserInformationState createState() => _UserInformationState();
-// }
-
-// class _UserInformationState extends State<UserInformation> {
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<QuerySnapshot>(
-//       stream: _usersStream,
-//       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-//         if (snapshot.hasError) {
-//           return Text('Something went wrong');
-//         }
-
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return Text("Loading");
-//         }
-
-//         return ListView(
-//           children: snapshot.data!.docs.map((DocumentSnapshot document) {
-//           Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-//             return ListTile(
-//               title: Text(data['full_name']),
-//               subtitle: Text(data['company']),
-//             );
-//           }).toList(),
-//         );
-//       },
-//     );
-//   }
-// }

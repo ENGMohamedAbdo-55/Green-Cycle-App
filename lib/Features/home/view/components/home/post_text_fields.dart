@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../ViewModel/cubit/HomeScreenCubit.dart';
-import '../../../ViewModel/cubit/HomeScreenState.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenState.dart';
+import 'package:green_cycle_app/Features/home/view/components/home/place_item.dart';
 
+import '../../../../../core/Services/Navigation.dart';
 import '../../../../../core/Services/spacing.dart';
 import '../../../../../core/colors.dart';
 import '../../../../../core/text_styles.dart';
 import '../../../../../core/textfield.dart';
 import '../../../../../core/widgets.dart';
+import '../../Screens/post_Location.dart';
 
 class Post_fields_Screen extends StatelessWidget {
   const Post_fields_Screen({super.key});
@@ -44,15 +47,18 @@ class Post_fields_Screen extends StatelessWidget {
               verticalSpace(15),
               postText(text: 'موقع المعاينة'),
               verticalSpace(10),
-              // PostTxtField(
-              //   controller: cubit.locationController,
-              //   hintText: 'اختار الموقع',
-              //   prefixIcon: Icon(
-              //     Icons.location_searching_outlined,
-              //     color: MyColors.greenColor,
-              //   ),
-              //   suffixIcon: Icon(Icons.location_on),
-              // ),
+              PostTxtField(
+                onTap: () =>
+                    Navigation.goPush(context, MapPostLocationScreen()),
+                controller: cubit.locationController,
+                keyboardType: TextInputType.none,
+                hintText: 'اختار الموقع',
+                prefixIcon: Icon(
+                  Icons.location_searching_outlined,
+                  color: MyColors.greenColor,
+                ),
+                suffixIcon: Icon(Icons.location_on),
+              ),
               verticalSpace(15),
               postText(text: 'وقت المعاينة'),
               verticalSpace(10),

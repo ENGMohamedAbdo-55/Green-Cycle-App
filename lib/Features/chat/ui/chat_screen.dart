@@ -38,7 +38,7 @@ class ChatScreen extends StatelessWidget {
             SizedBox(width: 8.w),
             CircleAvatar(
               radius: 20.r,
-              backgroundImage: NetworkImage(receiverModel.image),
+              backgroundImage: NetworkImage(receiverModel.image??''),
             ),
             SizedBox(width: 20.w), // Add some space between the widgets
             Text(

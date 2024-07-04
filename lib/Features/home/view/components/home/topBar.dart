@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:green_cycle_app/Features/home/view/Screens/search_screen.dart';
 import '../../Screens/search_screen.dart';
 
 import '../../../../../core/Services/Navigation.dart';
@@ -7,15 +9,31 @@ import '../../../../../core/Services/spacing.dart';
 import '../../../../../core/colors.dart';
 import '../../../../../core/text_styles.dart';
 import '../../../../../core/widgets.dart';
+import '../../Screens/sidebar_menu.dart';
 
-class TopBar extends StatelessWidget {
+class TopBar extends StatefulWidget {
   final double? buttonHeight;
   const TopBar({this.buttonHeight, super.key});
 
   @override
+  State<TopBar> createState() => _TopBarState();
+}
+
+class _TopBarState extends State<TopBar> {
+  List<QueryDocumentSnapshot> data = [];
+  ironFilter() async {
+    CollectionReference posts = FirebaseFirestore.instance.collection("posts");
+    QuerySnapshot filter = await posts.where('title', isEqualTo: 'حديد').get();
+    filter.docs.forEach((element) {
+      data.add(element);
+    });
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      height: buttonHeight ?? 177.h,
+      height: widget.buttonHeight ?? 165.h,
       decoration: BoxDecoration(
         color: MyColors.greenColor,
         borderRadius: BorderRadius.only(
@@ -31,43 +49,55 @@ class TopBar extends StatelessWidget {
             Row(
               children: [
                 homeAppBar(
-                    color: Colors.black, icon: Icon(Icons.notifications)),
-                Spacer(),
+                  color: MyColors.blackColor,
+                  icon: Icon(
+                    Icons.dark_mode,
+                    size: 25.sp,
+                  ),
+                ),
+                const Spacer(),
                 Text(
                   'كاربج',
                   style: AppStyles.textStyle32,
                 ),
-                Spacer(),
-                homeAppBar(
-                    color: MyColors.blackColor, icon: Icon(Icons.filter_3))
+                const Spacer(),
+                 IconButton(
+                    color: Colors.white,
+                    icon: const Icon(Icons.menu),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  ),
+
               ],
             ),
             verticalSpace(16),
             Row(
               children: [
-                homeAppBar(color: Colors.black, icon: Icon(Icons.tune)),
+                homeAppBar(
+                  color: Colors.black,
+                  icon: const Icon(Icons.tune),
+                ),
                 horizontalSpace(16),
                 InkWell(
                   onTap: () => Navigation.goPush(context, Search_Screen()),
-                  child: 
-                  
-                  Container(
-                    width: 250.w,
+                  child: Container(
+                    width: 240.w,
                     height: 40.h,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
-                        color: Color.fromARGB(255, 224, 219, 219)),
-                    child: ListTile(
-                      trailing: Icon(
+                        color: const Color.fromARGB(255, 224, 219, 219)),
+                    child: Row(textDirection: TextDirection.rtl, children: [
+                      horizontalSpace(20),
+                      Icon(
                         Icons.search,
                         size: 35.sp,
                       ),
-                      title: Text(
+                      horizontalSpace(10),
+                      Text(
                         'ما الذي تبحث عنه ؟',
                         textAlign: TextAlign.right,
                         style: AppStyles.textStyle14b,
                       ),
-                    ),
+                    ]),
                   ),
                 )
               ],

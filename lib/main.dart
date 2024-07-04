@@ -4,17 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'Features/auth/register/cubit/register_cubit.dart';
-import 'Features/chat/ui/chat_home.dart';
-import 'Features/chat/ui/chat_screen.dart';
-import 'Features/home/ViewModel/cubit/HomeScreenCubit.dart';
-import 'Features/home/view/Screens/Home_Screen.dart';
-import 'Features/onBoarding/onBoarding_Screen.dart';
-import 'Features/profile/view%20model/cubit/profile_cubit.dart';
-import 'Features/report/view%20model/cubit/report_cubit.dart';
-import 'Features/report/view/screens/create_report_screen.dart';
-import 'Features/report/view/screens/reports_screen.dart';
-import 'Features/splash/splash_screen.dart';
+import 'package:green_cycle_app/Features/auth/register/cubit/register_cubit.dart';
+import 'package:green_cycle_app/Features/chat/ui/chat_home.dart';
+import 'package:green_cycle_app/Features/chat/ui/chat_screen.dart';
+import 'package:green_cycle_app/Features/home/ViewModel/cubit/HomeScreenCubit.dart';
+import 'package:green_cycle_app/Features/home/view/Screens/Home_Screen.dart';
+import 'package:green_cycle_app/Features/onBoarding/onBoarding_Screen.dart';
+import 'package:green_cycle_app/Features/splash/splash_screen.dart';
 import 'package:green_cycle_app/core/Services/local/secure_keys.dart';
 import 'package:green_cycle_app/Features/auth/login/cubit/login_cubit.dart';
 import 'package:green_cycle_app/Features/auth/login/screen/login_screen.dart';
@@ -23,6 +19,8 @@ import 'package:green_cycle_app/Features/home/view/Screens/details_screen.dart';
 import 'package:green_cycle_app/Features/home/view/Screens/sidebar_menu.dart';
 import 'package:green_cycle_app/core/Services/local/secure_storage.dart';
 import 'package:green_cycle_app/core/observer.dart';
+import 'Features/profile/view model/cubit/profile_cubit.dart';
+import 'Features/report/view model/cubit/report_cubit.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -62,7 +60,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double iconSize = MediaQuery.of(context).size.width * 0.8;
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -94,10 +91,9 @@ class MyApp extends StatelessWidget {
               create: (BuildContext context) => UserProfileCubit(),
             ),
           ],
-          child:  MaterialApp(
+          child: MaterialApp(
             debugShowCheckedModeBanner: false,
             home: SplashScreen(startWidget: startWidget,),
-            
           ),
         );
       },

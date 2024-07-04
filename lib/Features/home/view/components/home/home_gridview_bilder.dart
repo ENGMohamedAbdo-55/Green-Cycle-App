@@ -21,9 +21,7 @@ class Home_Builder extends StatelessWidget {
       builder: (context, state) {
         var cubit = HomeScreenCubit.get(context);
         return SizedBox(
-          child: 
-          
-           Card(
+          child: Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.r),
               side: BorderSide(
@@ -38,15 +36,9 @@ class Home_Builder extends StatelessWidget {
                 Column(children: [
                   if (posts?.cameraUrl != "none")
                     Image.network(
-                      posts?.cameraUrl ??
-                          posts?.galleryUrl ??
-                          "${Icon(
-                            Icons
-                                .signal_wifi_statusbar_connected_no_internet_4_outlined,
-                            size: 140.sp,
-                          )}",
-                      // 'assets/images/onBoarding_images/onBoard1.png',
-                      height: 160.h, width: double.infinity,
+                      posts?.galleryUrl ?? posts?.cameraUrl ?? '',
+                      height: 160.h,
+                      width: double.infinity,
                       fit: BoxFit.fill,
                     ),
                 ]),
@@ -59,18 +51,20 @@ class Home_Builder extends StatelessWidget {
                         children: [
                           Text(
                             "جديد",
-                            style:
-                                TextStyle(color: Colors.black.withOpacity(0.4)),
+                            style: TextStyle(
+                                color: Colors.black.withOpacity(0.4),
+                                fontSize: 10.sp),
                             textAlign: TextAlign.end,
                           ),
                           Spacer(),
                           SizedBox(
-                            width: 100.w,
+                            width: 80.w,
                             child: Text(
+                              textDirection: TextDirection.rtl,
                               overflow: TextOverflow.ellipsis,
                               posts?.title ?? "text1",
-                              style: AppStyles.textStyle16b,
-                              textAlign: TextAlign.end,
+                              style: AppStyles.textStyle14b,
+                              textAlign: TextAlign.right,
                             ),
                           ),
                         ],
@@ -80,13 +74,14 @@ class Home_Builder extends StatelessWidget {
                         children: [
                           Spacer(),
                           SizedBox(
-                            height: 30,
+                            height: 25.h,
                             width: 120.w,
                             child: Text(
+                              textDirection: TextDirection.rtl,
                               overflow: TextOverflow.ellipsis,
                               posts?.description ?? "text1",
-                              style: AppStyles.textStyle18,
-                              textAlign: TextAlign.end,
+                              style: AppStyles.textStyle16,
+                              textAlign: TextAlign.right,
                             ),
                           ),
                         ],
