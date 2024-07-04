@@ -71,7 +71,7 @@ class MapSampleState extends State<MapPostLocationScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeScreenCubit, HomeScreenState>(
       listener: (context, state) {
-        // TODO: implement listener
+        // : implement listener
       },
       builder: (context, state) {
         var cubit = HomeScreenCubit.get(context);
