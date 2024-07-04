@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:green_cycle_app/Features/report/model/report_model.dart';
@@ -12,9 +11,10 @@ import '../../../auth/register/contents.dart';
 import '../widgets/repot_item.dart';
 
 class ReportsScreen extends StatelessWidget {
-  ReportModel reportModel;
+  final ReportModel reportModel; // Receive reportModel as a parameter
 
-   ReportsScreen({super.key,required this.reportModel});
+  ReportsScreen({Key? key, required this.reportModel}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -37,20 +37,19 @@ class ReportsScreen extends StatelessWidget {
             body: (cubit.firebaseReports ?? []).isEmpty
                 ? const Center(child: Text("no reports"))
                 : ListView.builder(
-                    itemCount: cubit
-                        .firebaseReports.length, // Number of items in the list
-                    itemBuilder: (context, index) {
-                      return GestureDetector(onTap: () {
-
-                                              Navigation.goPush(
-                                                context,
-                                                ReportDetailsScreen(id: ReportCubit.get(context).firebaseReports[index].id!)
-                                              );
-                                            },
-
-                      child: ReportItem(reports: cubit.firebaseReports[index]));
-                    },
-                  ),
+              itemCount: cubit.firebaseReports.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigation.goPush(
+                      context,
+                      ReportDetailsScreen(id: cubit.firebaseReports[index].id!),
+                    );
+                  },
+                  child: ReportItem(reports: cubit.firebaseReports[index]),
+                );
+              },
+            ),
           );
         },
       ),

@@ -51,7 +51,7 @@ class Details_screen extends StatelessWidget {
                             cubit.cameraUrl ??
                             "assets/images/cart/cartlogo.png",
                         width: double.infinity,
-                        height: 300, fit: BoxFit.fill,
+                        height: 280, fit: BoxFit.fill,
 
                         // color: Colors.amberAccent,
                       ),

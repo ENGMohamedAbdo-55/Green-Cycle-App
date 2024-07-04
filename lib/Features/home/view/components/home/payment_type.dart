@@ -21,7 +21,7 @@ class Payment_type extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              width: 160.w,
+              width: 165.w,
               height: 70.h,
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 82, 80, 80),
@@ -48,7 +48,7 @@ class Payment_type extends StatelessWidget {
             ),
             horizontalSpace(25),
             Container(
-              width: 160.w,
+              width: 165.w,
               height: 70.h,
               decoration: BoxDecoration(
                   color: MyColors.greenColor,

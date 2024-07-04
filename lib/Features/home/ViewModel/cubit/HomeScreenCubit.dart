@@ -105,20 +105,18 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
   File? cameraFile;
   String? cameraUrl;
   cameraImage() async {
-// Capture a photo.
     emit(TakePhotoLoading());
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? imageCamera =
-          await picker.pickImage(source: ImageSource.camera);
+      final XFile? imageCamera = await picker.pickImage(source: ImageSource.camera);
       if (imageCamera != null) {
         cameraFile = File(imageCamera.path);
         var cameraImageName = basename(imageCamera.path);
         var camerafilerefrence = FirebaseStorage.instance.ref(cameraImageName);
         await camerafilerefrence.putFile(cameraFile!);
         cameraUrl = await camerafilerefrence.getDownloadURL();
+        emit(TakePhotoSuccess());
       }
-      emit(TakePhotoSuccess());
     } catch (e) {
       print('Error while capturing photo: $e');
     }

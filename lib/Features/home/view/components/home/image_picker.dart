@@ -37,7 +37,7 @@ class Image_picker extends StatelessWidget {
                   " أختر صورة",
                   style: AppStyles.textStyle18,
                 ),
-                horizontalSpace(60),
+                horizontalSpace(50.w),
                 IconButton(
                   onPressed: () {
                     cubit.cameraImage();
